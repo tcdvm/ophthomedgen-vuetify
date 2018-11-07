@@ -38,7 +38,7 @@ export default {
   name: 'App',
   components: {
     HelloWorld,
-    OphthoMedGen
+    OphthoMedGen,
   },
   data () {
     return {

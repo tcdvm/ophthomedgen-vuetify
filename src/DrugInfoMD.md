@@ -1,4 +1,6 @@
-NeoPolyBac - AKA "Triple antibiotic (TAB) 
+NeoPolyBac 
+- AKA Triple antibiotic (TAB) *ointment*
+- 
 
 NeoPolyGram
 NeoPolyDex drops

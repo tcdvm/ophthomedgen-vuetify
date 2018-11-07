@@ -261,6 +261,7 @@
                 v-for="(drug, index) in antibiotics" 
                 :key=index
                 @click="selectDrug(index)" 
+                @mouseover="drugInfoUpdate(index)"
                 class="bigButton"
               >
               <!-- eslint-disable-next-line  -->
@@ -285,7 +286,23 @@
             </v-btn>
         </v-flex>
         <v-flex sm6>
-
+          <v-card>
+            <!-- <v-img
+              src="antiinflammatory-class.png"
+              aspect-ratio="2.75"
+            ></v-img> -->
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">{{drugInfo.drugName}}</h3>
+                <div>
+                  <vue-simple-markdown :source="drugInfo.drugBlurb"> </vue-simple-markdown>
+                </div><br>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <!-- <v-btn flat color="blue" href="https://vetophtho.org/kcs/kcs.html#definition-of-kcs" target="_blank">See notes on KCS</v-btn> -->
+            </v-card-actions>
+          </v-card>
         </v-flex>
         </v-layout>
       </v-container>
@@ -443,6 +460,11 @@
 
 <script>
 import drugs from "../assets/Drugs.json"
+import VueSimpleMarkdown from 'vue-simple-markdown'
+import 'vue-simple-markdown/dist/vue-simple-markdown.css'
+import Vue from 'vue'
+
+Vue.use(VueSimpleMarkdown)
 
 export default {
   data: function() {
@@ -460,6 +482,10 @@ export default {
       antibiotics: drugs.Antibiotics,
       antiinflammatories: drugs.Antiinflammatories,
       classInfo: "hover",
+      drugInfo: {
+        drugName: "Medication Information",
+        drubBlurb: "Hover over each drug for a little blurb on the medication and its use."
+      },
       sbtext: "",
       snackbar: false,
       sbcolor: "success",
@@ -470,6 +496,10 @@ export default {
     resetInfo: function () {
       this.classInfo.title = "Hover for Info";
       this.classInfo.srcImage = "cat.png";
+    },
+    drugInfoUpdate: function(index) {
+      this.drugInfo.drugName = this.antibiotics[index].drugName
+      this.drugInfo.drugBlurb = this.antibiotics[index].blurb
     },
     changeInfo: function(needInfo) {
       switch(needInfo) {

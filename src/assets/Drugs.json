@@ -5,7 +5,8 @@
       "formulation": "ophthalmic ointment",
       "route": "topical",
       "clientInfo": "This medication is a topical antibiotic.",
-      "dose": "a small amount (1/4\" strip)"
+      "dose": "a small amount (1/4\" strip)",
+      "blurb": "*test message*\nblahblahbah\n* blah\n  * blahblah\n  * whatever"
     },
     {
       "drugName": "NeoPolyGram",

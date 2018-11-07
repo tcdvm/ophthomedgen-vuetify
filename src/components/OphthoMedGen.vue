@@ -125,7 +125,6 @@
               <div>
                 <h3 class="headline mb-0">Hover your mouse</h3>
                 <div>To display information about the class of medications as well as see links to more information from your class notes.</div>
-                <vue-markdown>i am a ~~test~~ **test**.</vue-markdown>
               </div>
             </v-card-title>
           </v-card>
@@ -444,12 +443,8 @@
 
 <script>
 import drugs from "../assets/Drugs.json"
-import VueMarkdown from 'vue-markdown'
 
 export default {
-  components: {
-    VueMarkdown
-  },
   data: function() {
     return {
       step:1,

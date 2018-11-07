@@ -84,19 +84,27 @@
 
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-btn class="bigButton" @click="selectClass('kcs')">(4) KCS Meds/Lubricants</v-btn>
+                  <v-btn 
+                  class="bigButton" 
+                  @click="selectClass('kcs')"
+                  @mouseover="classInfo = 'kcs'">
+                  (4) KCS Meds/Lubricants</v-btn>
                 </v-list-tile-content>
               </v-list-tile>
 
-              <v-list-tile>
+              <!-- <v-list-tile>
                 <v-list-tile-content>
                   <v-btn class="bigButton" @click="selectClass('oral')">(5) Oral Meds</v-btn>
                 </v-list-tile-content>
-              </v-list-tile>
+              </v-list-tile> -->
 
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-btn class="bigButton" @click="selectClass('misc')">(6) Other stuff (serum, dilators)</v-btn>
+                  <v-btn 
+                    class="bigButton" 
+                    @click="selectClass('misc')"
+                    @mouseover="classInfo = 'misc'">
+                    (5) Other stuff (serum, dilators)</v-btn>
                 </v-list-tile-content>
               </v-list-tile>
 
@@ -187,6 +195,58 @@
               <v-btn flat color="blue" href="https://vetophtho.org/glaucoma/glaucoma.html#definition-of-glaucoma" target="_blank">See notes on Glaucoma</v-btn>
             </v-card-actions>
           </v-card>
+
+
+          <v-card v-show="classInfo == 'kcs'">
+            <v-img
+              src="kcs-class.png"
+              aspect-ratio="2.75"
+            ></v-img>
+
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Keratoconjunctivitis sicca (KCS)</h3>
+                <div>
+                  Treatment for KCS should include a tear-stimulant (e.g. cyclosporine) and artificial tears. Antibiotic/anti-inflammatory therapy can also be added (e.g. NeoPolyDex) for secondary bacterial infection and secondary inflammation (provided there is no active ulceration and the owners are careful).
+                </div><br>
+                <div>
+                  When using cyclosporine or tacrolimus, anything other than the 0.2% cyclosporine (e.g. optimmune) has to be specially made/ordered by a compounding pharmacy. See details for each specific medication regarding strength and efficacy.
+                </div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-btn flat color="blue" href="https://vetophtho.org/kcs/kcs.html#definition-of-kcs" target="_blank">See notes on KCS</v-btn>
+            </v-card-actions>
+          </v-card>
+
+          <v-card v-show="classInfo == 'misc'">
+            <v-img
+              src="cat.png"
+              aspect-ratio="2.75"
+            ></v-img>
+
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Miscellaneous Ophtho Stuff</h3>
+                <div>Included here:
+                  <ul>
+                    <li>Serum</li>
+                    <li>Dilators (e.g. atropine, tropicamide)</li>
+                    <li>Miotics(e.g. pilocarpine)</li>
+                    <li>Antihistamines (? efficacy)</li>
+                    <li>Antivirals</li>
+                    <li>Antifungals</li>
+                    <li>Can't-Hurt-Might-Help nutraceuticals</li>
+                  </ul>
+                </div>
+              </div>
+            </v-card-title>
+            <!-- <v-card-actions>
+              <v-btn flat color="orange">Share</v-btn>
+              <v-btn flat color="orange">Explore</v-btn>
+            </v-card-actions> -->
+          </v-card>
+
         </v-flex>
         <!-- INFO CARD -->
 
@@ -581,7 +641,7 @@ export default {
         case '5':
           switch(this.state) {
             case 'chooseClass':
-              this.selectClass('oral')
+              this.selectClass('misc')
               break;
             case 'chooseDrug':
               this.selectDrug(4)
@@ -598,7 +658,7 @@ export default {
         case '6':
           switch(this.state) {
             case 'chooseClass':
-              this.selectClass('misc')
+              // this.selectClass('misc')
               break;
             case 'chooseDrug':
               this.selectDrug(5)

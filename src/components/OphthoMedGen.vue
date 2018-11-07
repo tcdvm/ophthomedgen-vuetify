@@ -57,20 +57,28 @@
                     <v-btn 
                       class="bigButton" 
                       @click="selectClass('antibiotic')"
-                      @mouseover="changeInfo('antibiotics')">
+                      @mouseover="classInfo = 'antibiotic'">
                     (1) Antibiotics (w/wo steroids)</v-btn>
                 </v-list-tile-content>
               </v-list-tile>
 
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-btn class="bigButton" @click="selectClass('antiinflammatory')">(2) Anti-Inflammatories</v-btn>
+                  <v-btn 
+                    class="bigButton" 
+                    @click="selectClass('antiinflammatory')"
+                    @mouseover="classInfo = 'antiinflammatory'">
+                    (2) Anti-Inflammatories</v-btn>
                 </v-list-tile-content>
               </v-list-tile>
 
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-btn class="bigButton" @click="selectClass('glaucoma')">(3) Glaucoma Meds</v-btn>
+                  <v-btn 
+                    class="bigButton" 
+                    @click="selectClass('glaucoma')"
+                    @mouseover="classInfo = 'glaucoma'">
+                    (3) Glaucoma Meds</v-btn>
                 </v-list-tile-content>
               </v-list-tile>
 
@@ -98,25 +106,89 @@
 
         <!-- INFO CARD -->
         <v-flex sm6>
-          <v-card>
-          <v-img
-            :src="info.srcImage"
-            aspect-ratio="2.75"
-          ></v-img>
 
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Info Title: {{info.title}}</h3>
-              <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-            </div>
-          </v-card-title>
+          <v-card v-show="classInfo == 'hover'">
+            <v-img
+              src="cat.png"
+              aspect-ratio="2.75"
+            ></v-img>
 
-          <v-card-actions>
-            <v-btn flat color="orange">Share</v-btn>
-            <v-btn flat color="orange">Explore</v-btn>
-          </v-card-actions>
-        </v-card>
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Hover your mouse</h3>
+                <div>To display information about the class of medications as well as see links to more information from your class notes.</div>
+              </div>
+            </v-card-title>
+            <!-- <v-card-actions>
+              <v-btn flat color="orange">Share</v-btn>
+              <v-btn flat color="orange">Explore</v-btn>
+            </v-card-actions> -->
+          </v-card>
+
+
+          <v-card v-show="classInfo == 'antibiotic'">
+            <v-img
+              src="antibiotic-class-ulcer.png"
+              aspect-ratio="2.75"
+            ></v-img>
+
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Antibiotics</h3>
+                <div>The main indication for topical antibiotics is the treatment or prevention of bacterial infection in cases of corneal ulceration. There is a plethora of different topical antibiotics that can vary significantly in spectrum, efficacy, and penetration.</div><br>
+                
+                <div>If an active bacterial infection is suspected, corneal cytology can be an effective way to confirm and culture (aerobic typically) and sensitivity obtained </div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-btn flat color="blue" href="https://vetophtho.org/cornea/cornea.html#corneal-ulceration" target="_blank">See notes on Corneal Ulcers</v-btn>
+            </v-card-actions>
+          </v-card>
+
+          <v-card v-show="classInfo == 'antiinflammatory'">
+            <v-img
+              src="antiinflammatory-class.png"
+              aspect-ratio="2.75"
+            ></v-img>
+
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Anti-Inflammatories</h3>
+                <div>
+                  Topical anti-inflammatories include steroids and non-steroidals (NSAIDs). The main indication is the treatment of inflammation - either surface (e.g. keratoconjunctivitis) or intraocular (e.g. uveitis). Topical NSAIDS while safe, are not always sufficient by themselves to control inflammation.
+                </div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-btn flat color="blue" href="https://vetophtho.org/anterioruvea/anterioruvea.html#anterior-uveitis" target="_blank">See notes on Anterior Uveitis</v-btn>
+            </v-card-actions>
+          </v-card>
+
+          <v-card v-show="classInfo == 'glaucoma'">
+            <v-img
+              src="glaucoma-class.png"
+              aspect-ratio="2.75"
+            ></v-img>
+
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Glaucoma</h3>
+                <div>When deciding on the appropriate course of glaucoma medications, it's important to differeniate if the the glaucoma is primary vs secondary.
+                </div><br>
+                <div>
+                  <b>Primary glaucoma</b> typically (but not always) affects middle-aged dogs and classic breeds include the Basset Hound, Cocker Spaniel, Boston Terrier, Chow, and Huskey. Pressure spikes can be quite significant and painful. Emergent treatment to lower IOP in order to salvage vision is needed and most often includes use of latanoprost.
+                </div><br>
+                <div>
+                  <b>Secondary glaucoma</b> can arise from [chronic-ish] uveitis (or its variants such as hyphema or intraocular tumors) and lens luxation/instability. Note that latanoprost can be contraindicated in some cases of secondary glaucoma. Co-treatment of the primary cause is often needed.
+                </div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-btn flat color="blue" href="https://vetophtho.org/glaucoma/glaucoma.html#definition-of-glaucoma" target="_blank">See notes on Glaucoma</v-btn>
+            </v-card-actions>
+          </v-card>
         </v-flex>
+        <!-- INFO CARD -->
 
         </v-layout>
       </v-container>
@@ -272,13 +344,13 @@
                   <h2>E-collar:</h2>
                   <v-radio-group v-model="ecollar" mt-0>
                     <v-radio value="">
-                      <div slot="label">Not needed<br> (no text added)</div>
+                      <div slot="label">Not needed (no text)</div>
                     </v-radio>
                     <v-radio value="alltimes">
                       <div slot="label">At all times</div>
                     </v-radio>
                     <v-radio value="prn">
-                      <div slot="label">When unmonitored or if pawing</div>
+                      <div slot="label">When unmonitored</div>
                     </v-radio>
                   </v-radio-group>
                 </div>
@@ -332,20 +404,29 @@ export default {
       drugList: [],
       antibiotics: drugs.Antibiotics,
       antiinflammatories: drugs.Antiinflammatories,
-      info: {
-        title: "hi there",
-        srcImage: "cat.jpg"
-      },
-      sbtext: "I'm hungry",
-      snackbar: true,
+      classInfo: "hover",
+      sbtext: "",
+      snackbar: false,
       sbcolor: "success",
       sbposition: true
     }
   },
   methods: {
+    resetInfo: function () {
+      this.classInfo.title = "Hover for Info";
+      this.classInfo.srcImage = "cat.png";
+    },
     changeInfo: function(needInfo) {
-      this.info.title=needInfo
-      this.info.srcImage= "antibiotic-class-ulcer.png"
+      switch(needInfo) {
+        case 'antibiotics':
+          this.classInfo.title="Antibiotics";
+          this.classInfo.srcImage= "antibiotic-class-ulcer.png";
+          this.classInfo.text = "Topical antibiotics are indicated for treatment of corneal ulcerations. Considerations when choosing an antibiotic include <b>blah blah blah</b>"
+          break;
+        default:
+          this.resetInfo()
+          break;
+      }
     },
     selectClass: function(drugclass) {
       this.drugClass = drugclass;
@@ -587,8 +668,6 @@ export default {
       this.sbcolor="success"
       this.snackbar=true;
     },
-    getImgUrl(img) {
-    }
   },
   computed: {
     instructions: function() {

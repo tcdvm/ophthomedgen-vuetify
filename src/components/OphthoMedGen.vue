@@ -274,6 +274,7 @@
                   v-for="(drug, index) in antiinflammatories" 
                   :key=index
                   @click="selectDrug(index)" 
+                  @mouseover="drugInfoUpdate(index)"
                 class="bigButton"
                 >
                 <!-- eslint-disable-next-line  -->
@@ -294,6 +295,7 @@
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">{{drugInfo.drugName}}</h3>
+                <span class="grey--text">{{drugInfo.drugFormulation}}</span>
                 <div>
                   <vue-simple-markdown :source="drugInfo.drugBlurb"> </vue-simple-markdown>
                 </div><br>
@@ -484,7 +486,8 @@ export default {
       classInfo: "hover",
       drugInfo: {
         drugName: "Medication Information",
-        drubBlurb: "Hover over each drug for a little blurb on the medication and its use."
+        drugFormulation: "",
+        drugBlurb: "Hover over each drug for a little blurb on the medication and its use."
       },
       sbtext: "",
       snackbar: false,
@@ -498,8 +501,18 @@ export default {
       this.classInfo.srcImage = "cat.png";
     },
     drugInfoUpdate: function(index) {
-      this.drugInfo.drugName = this.antibiotics[index].drugName
-      this.drugInfo.drugBlurb = this.antibiotics[index].blurb
+      switch(this.drugClass) {
+        case 'antibiotics':
+          this.drugInfo.drugName = this.antibiotics[index].drugName
+          this.drugInfo.drugBlurb = this.antibiotics[index].blurb
+          this.drugInfo.drugFormulation = this.antibiotics[index].formulation
+          break;
+        case 'antiinflammatory':
+          this.drugInfo.drugName = this.antiinflammatories[index].drugName
+          this.drugInfo.drugBlurb = this.antiinflammatories[index].blurb
+          this.drugInfo.drugFormulation = this.antiinflammatories[index].formulation
+          break;
+      }
     },
     changeInfo: function(needInfo) {
       switch(needInfo) {

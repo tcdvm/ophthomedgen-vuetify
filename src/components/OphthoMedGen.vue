@@ -275,7 +275,7 @@
                   :key=index
                   @click="selectDrug(index)" 
                   @mouseover="drugInfoUpdate(index)"
-                class="bigButton"
+                  class="bigButton"
                 >
                 <!-- eslint-disable-next-line  -->
                 {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
@@ -502,7 +502,7 @@ export default {
     },
     drugInfoUpdate: function(index) {
       switch(this.drugClass) {
-        case 'antibiotics':
+        case 'antibiotic':
           this.drugInfo.drugName = this.antibiotics[index].drugName
           this.drugInfo.drugBlurb = this.antibiotics[index].blurb
           this.drugInfo.drugFormulation = this.antibiotics[index].formulation

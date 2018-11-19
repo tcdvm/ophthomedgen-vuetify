@@ -1,0 +1,47 @@
+[
+  {
+    "drugClass": "antibiotic",
+    "buttonText": "(1) Antibiotics (w/wo steroids)",
+    "image": "antibiotic-class-ulcer.png",
+    "title": "Antiotics",
+    "panelText": "<div>The main indication for topical antibiotics is the treatment or prevention of bacterial infection in cases of corneal ulceration. There is a plethora of different topical antibiotics that can vary significantly in spectrum, efficacy, and penetration.</div><br> <div>If an active bacterial infection is suspected, corneal cytology can be an effective way to confirm and culture (aerobic typically) and sensitivity obtained </div>",
+    "seeNotesLink": "https://vetophtho.org/cornea/cornea.html#corneal-ulceration",
+    "seeNotesText": "See notes on Corneal Ulcers"
+  },
+  {
+    "drugClass": "antiinflammatory",
+    "buttonText": "(2) Anti-Inflammatories",
+    "image": "antiinflammatory-class.png",
+    "title": "Anti-inflammatories",
+    "panelText": " <div> Topical anti-inflammatories include steroids and non-steroidals (NSAIDs). The main indication is the treatment of inflammation - either surface (e.g. keratoconjunctivitis) or intraocular (e.g. uveitis). Topical NSAIDS while safe, are not always sufficient by themselves to control inflammation. </div>",
+    "seeNotesLink": "https://vetophtho.org/anterioruvea/anterioruvea.html#anterior-uveitis",
+    "seeNotesText": "See notes on Anterior Uveitis"
+  },
+  {
+    "drugClass": "glaucoma",
+    "buttonText": "(3) Glaucoma Meds",
+    "image": "glaucoma-class.png",
+    "title": "Glaucoma",
+    "panelText": "<div>When deciding on the appropriate course of glaucoma medications, it's important to differeniate if the the glaucoma is primary vs secondary. </div><br> <div> <b>Primary glaucoma</b> typically (but not always) affects middle-aged dogs and classic breeds include the Basset Hound, Cocker Spaniel, Boston Terrier, Chow, and Huskey. Pressure spikes can be quite significant and painful. Emergent treatment to lower IOP in order to salvage vision is needed and most often includes use of latanoprost. </div><br> <div> <b>Secondary glaucoma</b> can arise from [chronic-ish ] uveitis (or its variants such as hyphema or intraocular tumors) and lens luxation/instability. Note that latanoprost can be contraindicated in some cases of secondary glaucoma. Co-treatment of the primary cause is often needed. </div> </div>",
+    "seeNotesLink": "https://vetophtho.org/glaucoma/glaucoma.html#definition-of-glaucoma",
+    "seeNotesText": "See notes on Glaucoma"
+  },
+  {
+    "drugClass": "kcs",
+    "buttonText": "(4) KCS Meds/Lubricants",
+    "image": "kcs-class.png",
+    "title": "Keratoconjunctivitis sicca (KCS)",
+    "panelText": "<div> Treatment for KCS should include a tear-stimulant (e.g. cyclosporine) and artificial tears. Antibiotic/anti-inflammatory therapy can also be added (e.g. NeoPolyDex) for secondary bacterial infection and secondary inflammation (provided there is no active ulceration and the owners are careful). </div><br> <div> When using cyclosporine or tacrolimus, anything other than the 0.2% cyclosporine (e.g. optimmune) has to be specially made/ordered by a compounding pharmacy. See details for each specific medication regarding strength and efficacy. </div> </div>",
+    "seeNotesLink": "https://vetophtho.org/kcs/kcs.html#definition-of-kcs",
+    "seeNotesText": "See notes on KCS"
+  },
+  {
+    "drugClass": "misc",
+    "buttonText": "(5) Other stuff (serum, dilators)",
+    "image": "cat.png",
+    "title": "Miscellaneous Ophtho Stuff",
+    "panelText": "<div>Included here: <ul> <li>Serum</li> <li>Dilators (e.g. atropine, tropicamide)</li> <li>Miotics(e.g. pilocarpine)</li> <li>Antihistamines (? efficacy)</li> <li>Antivirals</li> <li>Antifungals</li> <li>Can't-Hurt-Might-Help nutraceuticals</li> </ul> </div>",
+    "seeNotesLink": "",
+    "seeNotesText": ""
+  }
+]

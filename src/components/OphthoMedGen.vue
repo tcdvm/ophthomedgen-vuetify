@@ -5,45 +5,32 @@
     :color="sbcolor"
     :timeout="1500"
     :top="sbposition"
-  >
-    {{ sbtext }}
-    <v-btn
-      dark
-      flat
-      @click="snackbar = false"
-    >
-      Close
-    </v-btn>
+  > {{ sbtext }}
+    <v-btn dark flat @click="snackbar = false"> Close </v-btn>
   </v-snackbar>
   <v-flex lg7>
     <section>
-      <!-- <h1 class="title">Ophtho Meds Generator (OMG)</h1> -->
-      <!-- <p class="subtitle">
-        Too lazy to write out ophtho medication instructions in all their tedious glory? Well you're in luck! Use the below form to generate the instructions and then copy-paste into your discharges. <b>Keyboard shortcuts for meds are in parentheses (e.g. (1) - press "1") or hit Ctrl-C to copy what you've got! Hit the Escape key to cancel and go "back".</b>
-      </p> -->
-            <a class="button" 
-              style="display: none;"
-              v-shortkey="{ 
-                '1': ['1'],
-                '2': ['2'],
-                '3': ['3'],
-                '4': ['4'],
-                '5': ['5'],
-                '6': ['6'],
-                '7': ['7'],
-                '8': ['8'],
-                '9': ['9'],
-                '0': ['0'],
-                'esc': ['esc'],
-                'enter': ['enter']
-              }" 
-              @shortkey="handleShortCut" 
-             >Test</a>
-      <!-- <hr> -->
+      <a class="button" 
+        style="display: none;"
+        v-shortkey="{ 
+          '1': ['1'],
+          '2': ['2'],
+          '3': ['3'],
+          '4': ['4'],
+          '5': ['5'],
+          '6': ['6'],
+          '7': ['7'],
+          '8': ['8'],
+          '9': ['9'],
+          '0': ['0'],
+          'esc': ['esc'],
+          'enter': ['enter']
+        }" 
+        @shortkey="handleShortCut" 
+        >Test</a>
   <v-stepper v-model="step" vertical>
     <v-stepper-step :complete="step > 1" step="1">
       Choose a class of medication
-      <!-- <small>Summarize if needed</small> -->
     </v-stepper-step>
     <v-stepper-content step="1">
       <!-- Medication Class Selector -->
@@ -52,75 +39,36 @@
         <v-flex sm6>
           <v-card>
             <v-list>
-              <v-list-tile>
+              <v-list-tile v-for="(value, key) in drugClasses" :key="key">
                 <v-list-tile-content>
-                    <v-btn 
-                      class="bigButton" 
-                      @click="selectClass('antibiotic')"
-                      @mouseover="classInfo = 'antibiotic'">
-                    (1) Antibiotics (w/wo steroids)</v-btn>
+                  <class-button
+                    v-on:select-class="selectClass($event)"
+                    v-on:change-info="classInfo = $event"
+                    :drugclass="value.drugClass"
+                  >{{value.buttonText}}
+                  </class-button>
                 </v-list-tile-content>
               </v-list-tile>
-
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-btn 
-                    class="bigButton" 
-                    @click="selectClass('antiinflammatory')"
-                    @mouseover="classInfo = 'antiinflammatory'">
-                    (2) Anti-Inflammatories</v-btn>
-                </v-list-tile-content>
-              </v-list-tile>
-
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-btn 
-                    class="bigButton" 
-                    @click="selectClass('glaucoma')"
-                    @mouseover="classInfo = 'glaucoma'">
-                    (3) Glaucoma Meds</v-btn>
-                </v-list-tile-content>
-              </v-list-tile>
-
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-btn 
-                  class="bigButton" 
-                  @click="selectClass('kcs')"
-                  @mouseover="classInfo = 'kcs'">
-                  (4) KCS Meds/Lubricants</v-btn>
-                </v-list-tile-content>
-              </v-list-tile>
-
-              <!-- <v-list-tile>
-                <v-list-tile-content>
-                  <v-btn class="bigButton" @click="selectClass('oral')">(5) Oral Meds</v-btn>
-                </v-list-tile-content>
-              </v-list-tile> -->
-
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-btn 
-                    class="bigButton" 
-                    @click="selectClass('misc')"
-                    @mouseover="classInfo = 'misc'">
-                    (5) Other stuff (serum, dilators)</v-btn>
-                </v-list-tile-content>
-              </v-list-tile>
-
             </v-list>
           </v-card>
         </v-flex>
 
         <!-- INFO CARD -->
         <v-flex sm6>
+          <drug-class-info-panel v-for="(value, key) in drugClasses" :key="key"
+            :image="value.image"
+            :title="value.title"
+            :panelText="value.panelText"
+            :seeNotesLink="value.seeNotesLink"
+            :seeNotesText="value.seeNotesText"
+            v-show="classInfo == value.drugClass"
+            ></drug-class-info-panel>
 
           <v-card v-show="classInfo == 'hover'">
             <v-img
               src="cat.png"
               aspect-ratio="2.75"
             ></v-img>
-
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">Hover your mouse</h3>
@@ -128,124 +76,7 @@
               </div>
             </v-card-title>
           </v-card>
-
-
-          <v-card v-show="classInfo == 'antibiotic'">
-            <v-img
-              src="antibiotic-class-ulcer.png"
-              aspect-ratio="2.75"
-            ></v-img>
-
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Antibiotics</h3>
-                <div>The main indication for topical antibiotics is the treatment or prevention of bacterial infection in cases of corneal ulceration. There is a plethora of different topical antibiotics that can vary significantly in spectrum, efficacy, and penetration.</div><br>
-                
-                <div>If an active bacterial infection is suspected, corneal cytology can be an effective way to confirm and culture (aerobic typically) and sensitivity obtained </div>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn flat color="blue" href="https://vetophtho.org/cornea/cornea.html#corneal-ulceration" target="_blank">See notes on Corneal Ulcers</v-btn>
-            </v-card-actions>
-          </v-card>
-
-          <v-card v-show="classInfo == 'antiinflammatory'">
-            <v-img
-              src="antiinflammatory-class.png"
-              aspect-ratio="2.75"
-            ></v-img>
-
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Anti-Inflammatories</h3>
-                <div>
-                  Topical anti-inflammatories include steroids and non-steroidals (NSAIDs). The main indication is the treatment of inflammation - either surface (e.g. keratoconjunctivitis) or intraocular (e.g. uveitis). Topical NSAIDS while safe, are not always sufficient by themselves to control inflammation.
-                </div>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn flat color="blue" href="https://vetophtho.org/anterioruvea/anterioruvea.html#anterior-uveitis" target="_blank">See notes on Anterior Uveitis</v-btn>
-            </v-card-actions>
-          </v-card>
-
-          <v-card v-show="classInfo == 'glaucoma'">
-            <v-img
-              src="glaucoma-class.png"
-              aspect-ratio="2.75"
-            ></v-img>
-
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Glaucoma</h3>
-                <div>When deciding on the appropriate course of glaucoma medications, it's important to differeniate if the the glaucoma is primary vs secondary.
-                </div><br>
-                <div>
-                  <b>Primary glaucoma</b> typically (but not always) affects middle-aged dogs and classic breeds include the Basset Hound, Cocker Spaniel, Boston Terrier, Chow, and Huskey. Pressure spikes can be quite significant and painful. Emergent treatment to lower IOP in order to salvage vision is needed and most often includes use of latanoprost.
-                </div><br>
-                <div>
-                  <b>Secondary glaucoma</b> can arise from [chronic-ish] uveitis (or its variants such as hyphema or intraocular tumors) and lens luxation/instability. Note that latanoprost can be contraindicated in some cases of secondary glaucoma. Co-treatment of the primary cause is often needed.
-                </div>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn flat color="blue" href="https://vetophtho.org/glaucoma/glaucoma.html#definition-of-glaucoma" target="_blank">See notes on Glaucoma</v-btn>
-            </v-card-actions>
-          </v-card>
-
-
-          <v-card v-show="classInfo == 'kcs'">
-            <v-img
-              src="kcs-class.png"
-              aspect-ratio="2.75"
-            ></v-img>
-
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Keratoconjunctivitis sicca (KCS)</h3>
-                <div>
-                  Treatment for KCS should include a tear-stimulant (e.g. cyclosporine) and artificial tears. Antibiotic/anti-inflammatory therapy can also be added (e.g. NeoPolyDex) for secondary bacterial infection and secondary inflammation (provided there is no active ulceration and the owners are careful).
-                </div><br>
-                <div>
-                  When using cyclosporine or tacrolimus, anything other than the 0.2% cyclosporine (e.g. optimmune) has to be specially made/ordered by a compounding pharmacy. See details for each specific medication regarding strength and efficacy.
-                </div>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn flat color="blue" href="https://vetophtho.org/kcs/kcs.html#definition-of-kcs" target="_blank">See notes on KCS</v-btn>
-            </v-card-actions>
-          </v-card>
-
-          <v-card v-show="classInfo == 'misc'">
-            <v-img
-              src="cat.png"
-              aspect-ratio="2.75"
-            ></v-img>
-
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Miscellaneous Ophtho Stuff</h3>
-                <div>Included here:
-                  <ul>
-                    <li>Serum</li>
-                    <li>Dilators (e.g. atropine, tropicamide)</li>
-                    <li>Miotics(e.g. pilocarpine)</li>
-                    <li>Antihistamines (? efficacy)</li>
-                    <li>Antivirals</li>
-                    <li>Antifungals</li>
-                    <li>Can't-Hurt-Might-Help nutraceuticals</li>
-                  </ul>
-                </div>
-              </div>
-            </v-card-title>
-            <!-- <v-card-actions>
-              <v-btn flat color="orange">Share</v-btn>
-              <v-btn flat color="orange">Explore</v-btn>
-            </v-card-actions> -->
-          </v-card>
-
         </v-flex>
-        <!-- INFO CARD -->
-
         </v-layout>
       </v-container>
     </v-stepper-content>
@@ -461,17 +292,27 @@
 </template>
 
 <script>
-import drugs from "../assets/Drugs.json"
-import VueSimpleMarkdown from 'vue-simple-markdown'
-import 'vue-simple-markdown/dist/vue-simple-markdown.css'
-import Vue from 'vue'
+import drugs from "../assets/Drugs.json";
+import drugClasses from "../assets/DrugClasses.json";
+import VueSimpleMarkdown from "vue-simple-markdown";
+import "vue-simple-markdown/dist/vue-simple-markdown.css";
+import Vue from "vue";
+import SelectionStepper from "./SelectionStepper";
+import ClassButton from "./ClassButton";
+import DrugClassInfoPanel from "./DrugClassInfoPanel";
 
-Vue.use(VueSimpleMarkdown)
+Vue.use(VueSimpleMarkdown);
 
 export default {
+  components: {
+    SelectionStepper,
+    ClassButton,
+    DrugClassInfoPanel
+  },
   data: function() {
     return {
-      step:1,
+      drugClasses,
+      step: 1,
       state: "chooseClass", // chooseClass, chooseDrug, chooseEye, chooseFreq, ready
       drugClass: "",
       activeClassBtn: "",
@@ -487,42 +328,46 @@ export default {
       drugInfo: {
         drugName: "Medication Information",
         drugFormulation: "",
-        drugBlurb: "Hover over each drug for a little blurb on the medication and its use."
+        drugBlurb:
+          "Hover over each drug for a little blurb on the medication and its use."
       },
       sbtext: "",
       snackbar: false,
       sbcolor: "success",
       sbposition: true
-    }
+    };
   },
   methods: {
-    resetInfo: function () {
+    resetInfo: function() {
       this.classInfo.title = "Hover for Info";
       this.classInfo.srcImage = "cat.png";
     },
     drugInfoUpdate: function(index) {
-      switch(this.drugClass) {
-        case 'antibiotic':
-          this.drugInfo.drugName = this.antibiotics[index].drugName
-          this.drugInfo.drugBlurb = this.antibiotics[index].blurb
-          this.drugInfo.drugFormulation = this.antibiotics[index].formulation
+      switch (this.drugClass) {
+        case "antibiotic":
+          this.drugInfo.drugName = this.antibiotics[index].drugName;
+          this.drugInfo.drugBlurb = this.antibiotics[index].blurb;
+          this.drugInfo.drugFormulation = this.antibiotics[index].formulation;
           break;
-        case 'antiinflammatory':
-          this.drugInfo.drugName = this.antiinflammatories[index].drugName
-          this.drugInfo.drugBlurb = this.antiinflammatories[index].blurb
-          this.drugInfo.drugFormulation = this.antiinflammatories[index].formulation
+        case "antiinflammatory":
+          this.drugInfo.drugName = this.antiinflammatories[index].drugName;
+          this.drugInfo.drugBlurb = this.antiinflammatories[index].blurb;
+          this.drugInfo.drugFormulation = this.antiinflammatories[
+            index
+          ].formulation;
           break;
       }
     },
     changeInfo: function(needInfo) {
-      switch(needInfo) {
-        case 'antibiotics':
-          this.classInfo.title="Antibiotics";
-          this.classInfo.srcImage= "antibiotic-class-ulcer.png";
-          this.classInfo.text = "Topical antibiotics are indicated for treatment of corneal ulcerations. Considerations when choosing an antibiotic include <b>blah blah blah</b>"
+      switch (needInfo) {
+        case "antibiotics":
+          this.classInfo.title = "Antibiotics";
+          this.classInfo.srcImage = "antibiotic-class-ulcer.png";
+          this.classInfo.text =
+            "Topical antibiotics are indicated for treatment of corneal ulcerations. Considerations when choosing an antibiotic include <b>blah blah blah</b>";
           break;
         default:
-          this.resetInfo()
+          this.resetInfo();
           break;
       }
     },
@@ -533,11 +378,11 @@ export default {
       this.step = 2;
     },
     selectDrug: function(index) {
-      switch(this.drugClass) {
-        case 'antibiotic':
+      switch (this.drugClass) {
+        case "antibiotic":
           this.drug = this.antibiotics[index];
           break;
-        case 'antiinflammatory':
+        case "antiinflammatory":
           this.drug = this.antiinflammatories[index];
           break;
       }
@@ -553,7 +398,7 @@ export default {
     },
     selectFreq: function(freq) {
       this.sigFrequency = freq;
-      this.state="ready";
+      this.state = "ready";
       this.step = 5;
     },
     addDrug: function() {
@@ -572,200 +417,199 @@ export default {
       this.step = 1;
     },
     prevState: function() {
-      switch(this.state) {
-        case 'chooseClass':
-        case 'chooseDrug':
+      switch (this.state) {
+        case "chooseClass":
+        case "chooseDrug":
           this.drugClass = "";
           this.activeClassBtn = "";
           this.state = "chooseClass";
-          this.step = (this.step > 1 ? this.step - 1 : 1)
+          this.step = this.step > 1 ? this.step - 1 : 1;
           break;
-        case 'chooseEye':
+        case "chooseEye":
           this.drug = {};
           this.activeDrugBtn = null;
           this.state = "chooseDrug";
-          this.step = (this.step > 1 ? this.step - 1 : 1)
+          this.step = this.step > 1 ? this.step - 1 : 1;
           break;
-        case 'chooseFreq':
+        case "chooseFreq":
           this.state = "chooseEye";
-          this.step = (this.step > 1 ? this.step - 1 : 1)
+          this.step = this.step > 1 ? this.step - 1 : 1;
           break;
-        case 'ready':
+        case "ready":
           this.state = "chooseFreq";
-          this.step = (this.step > 1 ? this.step - 1 : 1)
+          this.step = this.step > 1 ? this.step - 1 : 1;
           break;
       }
     },
     handleShortCut(event) {
       switch (event.srcKey) {
-        case 'enter':
-          if(this.state == "ready")
-            this.addDrug()
+        case "enter":
+          if (this.state == "ready") this.addDrug();
           break;
-        case 'esc':
+        case "esc":
           this.prevState();
           break;
-        case '1':
-          switch(this.state) {
-            case 'chooseClass':
-              this.selectClass('antibiotic')
+        case "1":
+          switch (this.state) {
+            case "chooseClass":
+              this.selectClass("antibiotic");
               break;
-            case 'chooseDrug':
-              this.selectDrug(0)
+            case "chooseDrug":
+              this.selectDrug(0);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               this.selectEye("OS");
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               this.selectFreq("q24h");
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
-        case '2':
-          switch(this.state) {
-            case 'chooseClass':
-              this.selectClass('antiinflammatory')
+          break;
+        case "2":
+          switch (this.state) {
+            case "chooseClass":
+              this.selectClass("antiinflammatory");
               break;
-            case 'chooseDrug':
-              this.selectDrug(1)
+            case "chooseDrug":
+              this.selectDrug(1);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               this.selectEye("OD");
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               this.selectFreq("BID");
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
-        case '3':
-          switch(this.state) {
-            case 'chooseClass':
-              this.selectClass('glaucoma')
+          break;
+        case "3":
+          switch (this.state) {
+            case "chooseClass":
+              this.selectClass("glaucoma");
               break;
-            case 'chooseDrug':
-              this.selectDrug(2)
+            case "chooseDrug":
+              this.selectDrug(2);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               this.selectEye("OU");
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               this.selectFreq("TID");
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
-        case '4':
-          switch(this.state) {
-            case 'chooseClass':
-              this.selectClass('kcs')
+          break;
+        case "4":
+          switch (this.state) {
+            case "chooseClass":
+              this.selectClass("kcs");
               break;
-            case 'chooseDrug':
-              this.selectDrug(3)
+            case "chooseDrug":
+              this.selectDrug(3);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               this.selectFreq("QID");
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
-        case '5':
-          switch(this.state) {
-            case 'chooseClass':
-              this.selectClass('misc')
+          break;
+        case "5":
+          switch (this.state) {
+            case "chooseClass":
+              this.selectClass("misc");
               break;
-            case 'chooseDrug':
-              this.selectDrug(4)
+            case "chooseDrug":
+              this.selectDrug(4);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               this.selectFreq("q4h");
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
-        case '6':
-          switch(this.state) {
-            case 'chooseClass':
+          break;
+        case "6":
+          switch (this.state) {
+            case "chooseClass":
               // this.selectClass('misc')
               break;
-            case 'chooseDrug':
-              this.selectDrug(5)
+            case "chooseDrug":
+              this.selectDrug(5);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               this.selectFreq("q2h");
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
-        case '7':
-          switch(this.state) {
+          break;
+        case "7":
+          switch (this.state) {
             // case 'chooseClass':
             //   this.selectClass('misc')
             //   break;
-            case 'chooseDrug':
-              this.selectDrug(6)
+            case "chooseDrug":
+              this.selectDrug(6);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
-        case '8':
-          switch(this.state) {
+          break;
+        case "8":
+          switch (this.state) {
             // case 'chooseClass':
             //   this.selectClass('misc')
             //   break;
-            case 'chooseDrug':
-              this.selectDrug(7)
+            case "chooseDrug":
+              this.selectDrug(7);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
-        case '9':
-          switch(this.state) {
+          break;
+        case "9":
+          switch (this.state) {
             // case 'chooseClass':
             //   this.selectClass('misc')
             //   break;
-            case 'chooseDrug':
-              this.selectDrug(8)
+            case "chooseDrug":
+              this.selectDrug(8);
               break;
-            case 'chooseEye':
+            case "chooseEye":
               break;
-            case 'chooseFreq':
+            case "chooseFreq":
               break;
-            case 'ready':
+            case "ready":
               break;
           }
-          break
+          break;
       }
     },
     doCopy() {
-      this.$copyText(this.instructions).then()
+      this.$copyText(this.instructions).then();
       this.sbtext = "Copied to clipboard!";
-      this.sbcolor="success"
-      this.snackbar=true;
-    },
+      this.sbcolor = "success";
+      this.snackbar = true;
+    }
   },
   computed: {
     instructions: function() {
@@ -812,8 +656,7 @@ export default {
       return medicationInstructions;
     }
   }
-
-}
+};
 
 function toEnglish(term) {
   let english = "";
@@ -848,8 +691,6 @@ function toEnglish(term) {
   }
   return english;
 }
-
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -858,22 +699,23 @@ function toEnglish(term) {
   text-align: left;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
 
->>>.v-btn__content {
+>>> .v-btn__content {
   justify-content: left;
 }
 
->>>.bigButton {
+>>> .bigButton {
   text-transform: none;
   min-width: 250px;
 }
->>>.regButton {
+>>> .regButton {
   text-transform: none;
 }
 

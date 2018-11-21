@@ -3,7 +3,7 @@
     "drugClass": "antibiotic",
     "buttonText": "(1) Antibiotics (w/wo steroids)",
     "image": "antibiotic-class-ulcer.png",
-    "title": "Antiotics",
+    "title": "Antibiotics",
     "panelText": "<div>The main indication for topical antibiotics is the treatment or prevention of bacterial infection in cases of corneal ulceration. There is a plethora of different topical antibiotics that can vary significantly in spectrum, efficacy, and penetration.</div><br> <div>If an active bacterial infection is suspected, corneal cytology can be an effective way to confirm and culture (aerobic typically) and sensitivity obtained </div>",
     "seeNotesLink": "https://vetophtho.org/cornea/cornea.html#corneal-ulceration",
     "seeNotesText": "See notes on Corneal Ulcers"

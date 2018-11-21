@@ -112,6 +112,30 @@
                 {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
                 </v-btn>
             </div>
+            <div v-if="drugClass == 'glaucoma'">
+                <v-btn 
+                  v-for="(drug, index) in glaucomameds" 
+                  :key=index
+                  @click="selectDrug(index)" 
+                  @mouseover="drugInfoUpdate(index)"
+                  class="bigButton"
+                >
+                <!-- eslint-disable-next-line  -->
+                {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
+                </v-btn>
+            </div>
+            <div v-if="drugClass == 'kcs'">
+                <v-btn 
+                  v-for="(drug, index) in kcsmeds" 
+                  :key=index
+                  @click="selectDrug(index)" 
+                  @mouseover="drugInfoUpdate(index)"
+                  class="bigButton"
+                >
+                <!-- eslint-disable-next-line  -->
+                {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
+                </v-btn>
+            </div>
             <v-btn class="regButton" color="light-blue lighten-4" @click="this.prevState">
               (esc) Go to prev step
               <v-icon dark right>backspace</v-icon>
@@ -119,10 +143,6 @@
         </v-flex>
         <v-flex sm6>
           <v-card>
-            <!-- <v-img
-              src="antiinflammatory-class.png"
-              aspect-ratio="2.75"
-            ></v-img> -->
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0">{{drugInfo.drugName}}</h3>
@@ -133,7 +153,6 @@
               </div>
             </v-card-title>
             <v-card-actions>
-              <!-- <v-btn flat color="blue" href="https://vetophtho.org/kcs/kcs.html#definition-of-kcs" target="_blank">See notes on KCS</v-btn> -->
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -144,10 +163,7 @@
     <v-stepper-step :complete="step > 3" step="3">Choose the treated eye(s)</v-stepper-step>
 
     <v-stepper-content step="3">
-      <!-- Treated Eye Selector -->
       <section v-show="state == 'chooseEye' || state =='chooseFreq' || state == 'ready'">
-        <!-- <hr> -->
-          <!-- <label class="label">Select the Treated Eye(s)</label> -->
             <v-btn @click="selectEye('OS')">
               (1) OS
             </v-btn>
@@ -233,21 +249,60 @@
       <v-container>
         <v-layout>
           <v-flex sm6>
+            <v-flex>
             <v-card>
-              Drug to be added: <br>
-              Drug Class: {{drugClass}}<br> Drug Name: {{this.drug.drugName}}<br> Sig: {{this.sigEye}} {{this.sigFrequency}}<br>State: {{state}}<br>e-collar: {{ecollar}}
-                <ul>
-                  <li v-for="(item, key) in drugList" :key=key>
-                    <strong> {{ item }}</strong>
-                  </li>
-                </ul>
+              <v-card-title primary-title>
+                <div>
+                  <h3>Drug to be Added:</h3>
+                   {{drug.drugName}} {{sigEye}} {{sigFrequency}} &nbsp;    
+                </div>
+              </v-card-title>
             </v-card>
+            </v-flex>
+
+            <v-flex>
+            <v-card>
+              <v-card-title primary-title>
+                Want a quick and dirty template for a specific ophthalmic condition? If you know what you're doing click the below button:
+              </v-card-title>
+              <v-dialog v-model="dialog" width="500" >
+                <v-btn slot="activator" color="primary" dark>
+                  <span class="mr-2">Ophtho Drug Templates</span>
+                </v-btn>
+                <v-card>
+                  <v-card-title
+                    class="headline grey lighten-2"
+                    primary-title
+                  >
+                    Privacy Policy
+                  </v-card-title>
+
+                  <v-card-text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </v-card-text>
+
+                  <v-divider></v-divider>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="primary"
+                      flat
+                      @click="dialog = false"
+                    >
+                      I accept
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-card>
+            </v-flex>
           </v-flex>
           <v-flex sm6>
             <v-card>
               <v-card-title primary-title>
                 <div>
-                  <h2>E-collar:</h2>
+                  <h3>E-collar:</h3>
                   <v-radio-group v-model="ecollar" mt-0>
                     <v-radio value="">
                       <div slot="label">Not needed (no text)</div>
@@ -270,24 +325,42 @@
     </v-card>
     <v-card>
       <v-container>
-            <v-btn 
-              v-shortkey="['ctrl', 'c']" 
-              @shortkey="doCopy()" 
-              @click="doCopy()"
-              color="primary"
-            > Copy to Clipboard (Ctrl-C)</v-btn>
-      <v-textarea 
-        outline 
-        v-model="instructions" 
-        placeholder="Medication instructions here." 
-        rows="15" 
-        readonly>
-      </v-textarea>
-
-    </v-container>
-
+        <v-btn 
+          v-shortkey="['ctrl', 'c']" 
+          @shortkey="doCopy()" 
+          @click="doCopy()"
+          block
+        > (Ctrl-C) Copy to Clipboard</v-btn>
+        <v-textarea 
+          outline 
+          v-model="instructions" 
+          placeholder="Medication instructions here." 
+          rows="35" 
+          readonly>
+        </v-textarea>
+      </v-container>
     </v-card>
   </v-flex>
+  <v-footer
+    height="auto"
+    color="primary lighten-1">
+    <v-layout
+      justify-center
+      row
+      wrap
+    >
+      <v-spacer></v-spacer>
+      <v-card>
+              Drug to be added: <br>
+              Drug Class: {{drugClass}}<br> Drug Name: {{this.drug.drugName}}<br> Sig: {{this.sigEye}} {{this.sigFrequency}}<br>State: {{state}}<br>e-collar: {{ecollar}}
+                <ul>
+                  <li v-for="(item, key) in drugList" :key=key>
+                    <strong> {{ item }}</strong>
+                  </li>
+                </ul>
+            </v-card>
+    </v-layout>
+  </v-footer>
 </v-layout>
 </template>
 
@@ -324,6 +397,8 @@ export default {
       drugList: [],
       antibiotics: drugs.Antibiotics,
       antiinflammatories: drugs.Antiinflammatories,
+      glaucomameds: drugs.Glaucoma,
+      kcsmeds: drugs.KCS,
       classInfo: "hover",
       drugInfo: {
         drugName: "Medication Information",
@@ -356,6 +431,16 @@ export default {
             index
           ].formulation;
           break;
+        case "glaucoma":
+          this.drugInfo.drugName = this.glaucomameds[index].drugName;
+          this.drugInfo.drugBlurb = this.glaucomameds[index].blurb;
+          this.drugInfo.drugFormulation = this.glaucomameds[index].formulation;
+          break;
+        case "kcs":
+          this.drugInfo.drugName = this.kcsmeds[index].drugName;
+          this.drugInfo.drugBlurb = this.kcsmeds[index].blurb;
+          this.drugInfo.drugFormulation = this.kcsmeds[index].formulation;
+          break;
       }
     },
     changeInfo: function(needInfo) {
@@ -384,6 +469,12 @@ export default {
           break;
         case "antiinflammatory":
           this.drug = this.antiinflammatories[index];
+          break;
+        case "glaucoma":
+          this.drug = this.glaucomameds[index];
+          break;
+        case "kcs":
+          this.drug = this.kcsmeds[index];
           break;
       }
       this.activeDrugBtn = index;

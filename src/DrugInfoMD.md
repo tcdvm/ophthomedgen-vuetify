@@ -46,11 +46,40 @@ Diclofenac
 * Topical NSAID \n* Usually insufficient alone for treatment of uveitis \n* Concurrent use in cases of corneal ulceration is questionable out of concern for impairment of epithelial healing and reports of melting secondary to NSAID use in veterinary and people
 
 Ketorolac
-* Topical NSAID \n* Usually insufficient alone for treatment of uveitis \n* Concurrent use in cases of corneal ulceration is questionable out of concern for impairment of epithelial healing and reports of melting secondary to NSAID use in veterinary andpeople \n* :+1: Comes in a 10 mL bottle
+* Topical NSAID \n* Usually insufficient alone for treatment of uveitis \n* Concurrent use in cases of corneal ulceration is questionable out of concern for impairment of epithelial healing and reports of melting secondary to NSAID use in veterinary and people \n* :+1: Comes in a 10 mL bottle
+
+---
+Dorzolamide/Timolol (Cosopt)
+* A combination of a carbonic anhydrase inhibitor (Dorzoladmide) and a beta-blocker (Timolol) - more effect together than either alone \n* Useful for secondary glacuomas were extreme miosis is *not* desired (e.g. uveitis) \n* Start off at BID dosing (more has not necessarily been shown to be better but can do up to QID) \n* :exclamation: Rare incidences of sensitivity (i.e. keratitis) with prolonged use has been [reported](https://www.ncbi.nlm.nih.gov/pubmed/26642138) for dorzolamide
+
+Latanoprost (Xalatan)
+* First line treatment for acute spikes in *primary* glaucoma \n* May be contraindicated for secondary glaucoma such as lens luxation or uveitis \n* Extreme miosis with use so not ideal for above secondary glaucomas \n* :cat: As most glaucomas in cats are secondary, limited use - if primary, [reported](https://www.ncbi.nlm.nih.gov/pubmed/26183373) to work but not long-term
+
+Timolol
+* A generally "weak" glaucoma medication, not terribly efficacious on its own \n* Useful as a prophylactic medication in an unaffected eye/dog with primary glaucoma (BID) \n* Potentially contraindicated in small animals (greater relative systemic absorption) with heart-failure/asthma
+
+Dorzolamide (Trusopt)
+* A topical carbonic anhydrase inhibitor \n* Can be given alone if there are concerns for Timolol \n* Literature describes TID dosing in dogs, BID in cats \n* :exclamation: Rare incidences of sensitivity (keratitis) with prolonged use has been [reported](https://www.ncbi.nlm.nih.gov/pubmed/?term=26642138) for dorzolamide
+
+Bimatoprost (Lumigan)
+* Like latanoprost but expensive :money_with_wings: (~$50-$100 for 2.5 mL) \n* Anecdotally used as a 'rescue' treatment for when glaucoma becomes refractory to traditional latanoprost/Cosopt therapy - usually effects are short-lived
 
 ---
 
-Timolol
-Dorzolamide
-Dorzolamide/Timolol
-Latanoprost
+Cyclosporine 0.2% (Optimmune)
+* Immunomodulatory agent/lacromimetic \n* Usually indicated for KCS although can also use for immune mediated keratitis (e.g. pannus) \n* Initial dose is usually BID, can be given TID in severe cases \n* Does *not* penetrate intraocularly \n* Can be [compounded](https://vetophtho.org/clinics/compounding_pharmacies.html) into 1 and 2% suspensions if higher dose indicated (refractory or severe cases)
+
+Cyclosporine 1%
+* Immunomodulatory agent/lacromimetic \n* Usually indicated for KCS although can also use for immune mediated keratitis (e.g. pannus) \n* Initial dose is usually BID, can be given TID in severe cases \n* Does *not* penetrate intraocularly, only effective for cornea/conjunctiva \n* Has to be [compounded](https://vetophtho.org/clinics/compounding_pharmacies.html)
+
+Cyclosporine 2%
+* Immunomodulatory agent/lacromimetic \n* Usually indicated for KCS although can also use for immune mediated keratitis (e.g. pannus) \n* Initial dose is usually BID, can be given TID in severe cases \n* Does *not* penetrate intraocularly, only effective for cornea/conjunctiva \n* Has to be [compounded](https://vetophtho.org/clinics/compounding_pharmacies.html)
+
+Tacrolimus 0.03%
+* Similar to cyclosporine (although 10 times more potent) \n* Immunomodulatory agent/lacromimetic \n* Compared to cyclosporine for KCS, not necessarily better, but can work better in some patients \n* Usually indicated for KCS although can also use for immune mediated keratitis (e.g. pannus) \n* Initial dose is usually BID, can be given TID in severe cases \n* Does *not* penetrate intraocularly, only effective for cornea/conjunctiva \n* Has to be [compounded](https://vetophtho.org/clinics/compounding_pharmacies.html)
+
+Genteal Severe Dry Eye Gel
+* Provides prolonged lubrication vs eye drops
+
+Artificial tear ointment
+* Provides prolonged lubrication vs gel or drops

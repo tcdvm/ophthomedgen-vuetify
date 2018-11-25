@@ -36,7 +36,7 @@
       <!-- Medication Class Selector -->
       <v-container>
         <v-layout>
-        <v-flex sm6>
+        <v-flex sm5>
           <v-card>
             <v-list>
               <v-list-tile v-for="(value, key) in drugClasses" :key="key">
@@ -54,7 +54,7 @@
         </v-flex>
 
         <!-- INFO CARD -->
-        <v-flex sm6>
+        <v-flex sm7>
           <drug-class-info-panel v-for="(value, key) in drugClasses" :key="key"
             :image="value.image"
             :title="value.title"
@@ -86,7 +86,7 @@
     <v-stepper-content step="2">
       <v-container>
         <v-layout>
-          <v-flex sm6>
+          <v-flex sm5>
             <div v-if="drugClass == 'antibiotic'">
               <v-btn 
                 v-for="(drug, index) in antibiotics" 
@@ -136,12 +136,24 @@
                 {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
                 </v-btn>
             </div>
+            <div v-if="drugClass == 'misc'">
+                <v-btn 
+                  v-for="(drug, index) in miscmeds" 
+                  :key=index
+                  @click="selectDrug(index)" 
+                  @mouseover="drugInfoUpdate(index)"
+                  class="bigButton"
+                >
+                <!-- eslint-disable-next-line  -->
+                {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
+                </v-btn>
+            </div>
             <v-btn class="regButton" color="light-blue lighten-4" @click="this.prevState">
               (esc) Go to prev step
               <v-icon dark right>backspace</v-icon>
             </v-btn>
         </v-flex>
-        <v-flex sm6>
+        <v-flex sm7>
           <v-card>
             <v-card-title primary-title>
               <div>
@@ -254,7 +266,12 @@
               <v-card-title primary-title>
                 <div>
                   <h3>Drug to be Added:</h3>
-                   {{drug.drugName}} {{sigEye}} {{sigFrequency}} &nbsp;    
+                  <div v-if="drug.drugName">
+                   {{drug.drugName}} {{sigEye}} {{sigFrequency}}
+                  </div>
+                  <div class="font-weight-light" v-else>
+                    Selections/Sig shown here!
+                  </div>
                 </div>
               </v-card-title>
             </v-card>
@@ -265,36 +282,9 @@
               <v-card-title primary-title>
                 Want a quick and dirty template for a specific ophthalmic condition? If you know what you're doing click the below button:
               </v-card-title>
-              <v-dialog v-model="dialog" width="500" >
-                <v-btn slot="activator" color="primary" dark>
-                  <span class="mr-2">Ophtho Drug Templates</span>
-                </v-btn>
-                <v-card>
-                  <v-card-title
-                    class="headline grey lighten-2"
-                    primary-title
-                  >
-                    Privacy Policy
-                  </v-card-title>
-
-                  <v-card-text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </v-card-text>
-
-                  <v-divider></v-divider>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="primary"
-                      flat
-                      @click="dialog = false"
-                    >
-                      I accept
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
+              <ophtho-drug-template
+                v-on:append-to-drugList="appendDrugs($event)"
+              ></ophtho-drug-template>
             </v-card>
             </v-flex>
           </v-flex>
@@ -329,8 +319,11 @@
           v-shortkey="['ctrl', 'c']" 
           @shortkey="doCopy()" 
           @click="doCopy()"
-          block
         > (Ctrl-C) Copy to Clipboard</v-btn>
+        <v-btn 
+          @click="clearDrugList()"
+          color="warning"
+        >Clear List - Reset</v-btn>
         <v-textarea 
           outline 
           v-model="instructions" 
@@ -354,9 +347,9 @@
               Drug to be added: <br>
               Drug Class: {{drugClass}}<br> Drug Name: {{this.drug.drugName}}<br> Sig: {{this.sigEye}} {{this.sigFrequency}}<br>State: {{state}}<br>e-collar: {{ecollar}}
                 <ul>
-                  <li v-for="(item, key) in drugList" :key=key>
-                    <strong> {{ item }}</strong>
-                  </li>
+                  <p v-for="(item, key) in drugList" :key=key>
+                    {{ item }}
+                  </p>
                 </ul>
             </v-card>
     </v-layout>
@@ -373,6 +366,7 @@ import Vue from "vue";
 import SelectionStepper from "./SelectionStepper";
 import ClassButton from "./ClassButton";
 import DrugClassInfoPanel from "./DrugClassInfoPanel";
+import OphthoDrugTemplate from "./OphthoDrugTemplate";
 
 Vue.use(VueSimpleMarkdown);
 
@@ -380,7 +374,8 @@ export default {
   components: {
     SelectionStepper,
     ClassButton,
-    DrugClassInfoPanel
+    DrugClassInfoPanel,
+    OphthoDrugTemplate
   },
   data: function() {
     return {
@@ -399,6 +394,7 @@ export default {
       antiinflammatories: drugs.Antiinflammatories,
       glaucomameds: drugs.Glaucoma,
       kcsmeds: drugs.KCS,
+      miscmeds: drugs.Misc,
       classInfo: "hover",
       drugInfo: {
         drugName: "Medication Information",
@@ -413,6 +409,16 @@ export default {
     };
   },
   methods: {
+    clearDrugList: function() {
+      this.drugList = [];
+    },
+    appendDrugs: function(drugTemplate) {
+      this.ecollar = drugTemplate.ecollar ? drugTemplate.ecollar : this.ecollar;
+      drugTemplate.drugs.drugList.forEach(function(element) {
+        element.eye = drugTemplate.eye;
+      });
+      this.drugList = this.drugList.concat(drugTemplate.drugs.drugList);
+    },
     resetInfo: function() {
       this.classInfo.title = "Hover for Info";
       this.classInfo.srcImage = "cat.png";
@@ -440,6 +446,11 @@ export default {
           this.drugInfo.drugName = this.kcsmeds[index].drugName;
           this.drugInfo.drugBlurb = this.kcsmeds[index].blurb;
           this.drugInfo.drugFormulation = this.kcsmeds[index].formulation;
+          break;
+        case "misc":
+          this.drugInfo.drugName = this.miscmeds[index].drugName;
+          this.drugInfo.drugBlurb = this.miscmeds[index].blurb;
+          this.drugInfo.drugFormulation = this.miscmeds[index].formulation;
           break;
       }
     },
@@ -475,6 +486,9 @@ export default {
           break;
         case "kcs":
           this.drug = this.kcsmeds[index];
+          break;
+        case "misc":
+          this.drug = this.miscmeds[index];
           break;
       }
       this.activeDrugBtn = index;

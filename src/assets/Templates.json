@@ -1,0 +1,75 @@
+{
+  "Postop Phaco": {
+    "ecollar": "alltimes",
+    "description": "Post-op Phaco medications include antibiotics - prophylaxis for infection, anti-inflammatories for surgical uveitis, tropicamide, and artificial tears.",
+    "drugList": [
+      {
+        "drug": {
+          "drugName": "NeoPolyGram",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical antibiotic.",
+          "dose": "1 drop",
+          "blurb": "* Similar to NeoPolyBac but is a __solution__ :sweat_drops: instead of an ointment \n* Used for prophylaxis or nonspecific surface infection. Not indicated as empirical therapy for deep/stromal ulcers \n* Broad spectrum but poor penetration \n* Dose for prophylaxis is typically BID \n* :cat: There is a [report](https://www.ncbi.nlm.nih.gov/pubmed/21906985) of suspected anaphylaxis with use of topical antibiotics (e.g. TAB or terramycin) in cats. The chance of a reaction is likely extremely remote but no data is available as to how remote"
+        },
+        "eye": "OU",
+        "frequency": "QID"
+      },
+      {
+        "drug": {
+          "drugName": "Prednisolone aceteate",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical steroid and is contraindicated with corneal ulcers. Stop and call if squinting is noted.",
+          "dose": "1 drop",
+          "blurb": "* Indicated for control of active anterior segment inflammation (i.e. uveitis) \n* Good penetration through intact epithelium (better than dexamethasone) \n* Dose depends on degree of inflammation (QID+ if severe, q24h-TID if less)"
+        },
+        "eye": "OU",
+        "frequency": "QID"
+      },
+      {
+        "drug": {
+          "drugName": "Ketorolac",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical non-steroidal anti-inflammatory (NSAID).",
+          "dose": "1 drop",
+          "blurb": "* Topical NSAID \n* Usually insufficient alone for treatment of uveitis \n* Concurrent use in cases of corneal ulceration is questionable out of concern for impairment of epithelial healing and reports of melting secondary to NSAID use in veterinary and people \n* :+1: Comes in a 10 mL bottle"
+        },
+        "eye": "OU",
+        "frequency": "QID"
+      },
+      {
+        "drug": {
+          "drugName": "Tropicamide",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is to help dilate the pupil.",
+          "dose": "1 drop",
+          "blurb": "* Used primarily for short-acting mydriasis - quick acting (15-30 min effect) with limited duration of effect (few hours depending on species) \n* Limited cycloplegia so not as useful as atropine for ciliary body spasm"
+        },
+        "eye": "OU",
+        "frequency": "BID"
+      },
+      {
+        "drug": {
+          "drugName": "Genteal Severe Dry Eye Gel",
+          "formulation": "ophthalmic gel",
+          "route": "topical",
+          "clientInfo": "This is a topical artificial tear gel.",
+          "dose": "1 drop",
+          "blurb": "* Provides prolonged lubrication vs eye drops"
+        },
+        "eye": "OU",
+        "frequency": "QID"
+      }
+    ]
+  },
+  "Indolent Ulcer": {
+    "ecollar": "alltimes",
+    "description": "Post-op Phaco medications include antibiotics - prophylaxis for infection, anti-inflammatories for surgical uveitis, tropicamide, and artificial tears.",
+    "drugList": [
+      {}
+    ]
+  }
+}

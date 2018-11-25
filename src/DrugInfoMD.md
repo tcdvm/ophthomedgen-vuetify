@@ -83,3 +83,17 @@ Genteal Severe Dry Eye Gel
 
 Artificial tear ointment
 * Provides prolonged lubrication vs gel or drops
+
+---
+
+Serum
+* Main indication is for melting corneal ulcers or stromal ulcers where it's obvious some stromal lysis has happened and potentially will continue \n* [Recent study](https://www.ncbi.nlm.nih.gov/pubmed/28414606) showed no improvement in healing times for indolent ulcers, neither did [platelet rich plasma](https://www.ncbi.nlm.nih.gov/pubmed/30272521) \n* Frequency dependent on degree of melting/lysis present - actively melting: q1-2h, stablizing ulcer: q4-6h, epithelializing: q8-12h
+
+Atropine
+* Used primarily for cycloplegia to reduce ciliary body spasm (e.g. ulcerative keratitis) or to dilate the pupil (to prevent 360 degree synechiae and iris bombe) in uveitis \n* Frequent use can result in decreased tear production so care should be taken with concurrent KCS (at least add in frequent lubrication) \n* :horse: Atropine can slow GI motility which is a concern for colic - however, there is scant evidence of this and [a](https://www.ncbi.nlm.nih.gov/pubmed/29154707) [few](https://www.ncbi.nlm.nih.gov/pubmed/27308887) [studies](https://www.ncbi.nlm.nih.gov/pubmed/22657933) suggesting there is no significant clinical effect of topical atropine (up to QID) in horses \n* :tongue::sweat_drops: Solution can drip down the nasolacrimal duct and result in significant drooling (medication is quite bitter), ointment can too - maybe less likely. 
+
+Tropicamide
+* Used primarily for short-acting mydriasis - quick acting (15-30 min effect) with limited duration of effect (few hours depending on species) \n* Limited cycloplegia so not as useful as atropine for ciliary body spasm
+
+Pilocarpine
+* Rarely used except for neurogenic KCS, anecdotal/questionable efficacy \n* Increase oral dose until toxicity (SLUD) noted - usually in the form of :poop: soft stools (ask owner to monitor stools)

@@ -40,7 +40,7 @@
     "buttonText": "(5) Other stuff (serum, dilators)",
     "image": "cat.png",
     "title": "Miscellaneous Ophtho Stuff",
-    "panelText": "<div>Included here: <ul> <li>Serum</li> <li>Dilators (e.g. atropine, tropicamide)</li> <li>Miotics(e.g. pilocarpine)</li> <li>Antihistamines (? efficacy)</li> <li>Antivirals</li> <li>Antifungals</li> <li>Can't-Hurt-Might-Help nutraceuticals</li> </ul> </div>",
+    "panelText": "<div>Included here: <ul> <li>Serum</li> <li>Dilators (e.g. atropine, tropicamide)</li> <li>Miotics(e.g. pilocarpine)</li>  </ul> </div>",
     "seeNotesLink": "",
     "seeNotesText": ""
   }

@@ -7,7 +7,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
           <v-dialog
-      v-model="dialog"
+      v-model="instructions"
       width="500"
     >
       <v-btn
@@ -62,18 +62,16 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import OphthoMedGen from "./components/OphthoMedGen";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
     OphthoMedGen
   },
   data() {
     return {
-      //
+      instructions: false
     };
   }
 };

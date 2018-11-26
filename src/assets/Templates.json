@@ -65,11 +65,76 @@
       }
     ]
   },
+  "Melting Corneal Ulcer": {
+    "ecollar": "alltimes",
+    "description": "Melting corneal ulcers can be infected or sterile. Aggressive medical therapy with anticollagenases are needed to arrest melting and allow epithelialization to occur. Corneal cytology and/or culture should be performed to ensure proper antibiotic coverage.",
+    "drugList": [
+      {
+        "drug": {
+          "drugName": "Ciprofloxacin",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical antibiotic.",
+          "dose": "1 drop",
+          "blurb": "* 2nd generation fluoroquinolone \n* Good penetrance for stroma and anterior chamber \n* Good for Pseudomonas but also has some G+ spectrum as well (although increasing resistance noted in human literature) \n* Useful for actively infected/stromal/deep corneal ulcer"
+        },
+        "eye": "OU",
+        "frequency": "q4h"
+      },
+      {
+        "drug": {
+          "drugName": "Atropine ointment",
+          "formulation": "ophthalmic ointment",
+          "route": "topical",
+          "clientInfo": "This medication is to help dilate the pupil and improve comfort. Effects can last up to a couple weeks in a normal eye - please wash your hands after use. Atropine is very bitter and may induce drooling if it drains down to the nose where it can be licked.",
+          "dose": "a small amount (1/4\" strip)",
+          "blurb": "* Used primarily for cycloplegia to reduce ciliary body spasm (e.g. ulcerative keratitis) or to dilate the pupil (to prevent 360 degree synechiae and iris bombe) in uveitis \n* Frequent use can result in decreased tear production so care should be taken with concurrent KCS (at least add in frequent lubrication) \n* :horse: Atropine can slow GI motility which is a concern for colic - however, there is scant evidence of this and [a](https://www.ncbi.nlm.nih.gov/pubmed/29154707) [few](https://www.ncbi.nlm.nih.gov/pubmed/27308887) [studies](https://www.ncbi.nlm.nih.gov/pubmed/22657933) suggesting there is no significant clinical effect of topical atropine (up to QID) in horses \n* :tongue::sweat_drops: Solution can drip down the nasolacrimal duct and result in significant drooling (medication is quite bitter), ointment can too - maybe less likely."
+        },
+        "eye": "OU",
+        "frequency": "BID"
+      },
+      {
+        "drug": {
+          "drugName": "Serum",
+          "formulation": "drops",
+          "route": "topical",
+          "clientInfo": "This is a component of blood that is used to slow or prevent degradation of the cornea.",
+          "dose": "1 drop",
+          "blurb": "* Main indication is for melting corneal ulcers or stromal ulcers where it's obvious some stromal lysis has happened and potentially will continue \n* [Recent study](https://www.ncbi.nlm.nih.gov/pubmed/28414606) showed no improvement in healing times for indolent ulcers, neither did [platelet rich plasma](https://www.ncbi.nlm.nih.gov/pubmed/30272521) \n* Frequency dependent on degree of melting/lysis present - actively melting: q1-2h, stablizing ulcer: q4-6h, epithelializing: q8-12h"
+        },
+        "eye": "OU",
+        "frequency": "Q2H"
+      }
+    ]
+  },
   "Indolent Ulcer": {
     "ecollar": "alltimes",
-    "description": "Post-op Phaco medications include antibiotics - prophylaxis for infection, anti-inflammatories for surgical uveitis, tropicamide, and artificial tears.",
+    "description": "Indolent ulcers are *superficial* ulcers that are refractory to healing. They typically occur in middle-aged to older dogs. Some infected ulcers can mimic indolent ulcers (if there Antibiotics are usually for prophylaxis",
     "drugList": [
-      {}
+      {
+        "drug": {
+          "drugName": "Terramycin",
+          "formulation": "ophthalmic ointment",
+          "route": "topical",
+          "clientInfo": "This medication is a topical antibiotic.",
+          "dose": "a small amount (1/4\" strip)",
+          "blurb": "* Combination of oxytetracycline and polymixin B \n* Broad spectrum but bacteriostatic and resistance common \n* :dog: Reported to accelerate healing of indolent ulcers (TID dose) \n* :cat: Used for chlamydophila & mycoplasma (conjunctivitis in young cats) \n* :sparkles: Has other 'special' properties related to MMP activity, antioxidant activity, and anti-apoptotic, anti-inflammatory effects (poorly described & understood)."
+        },
+        "eye": "OU",
+        "frequency": "TID"
+      },
+      {
+        "drug": {
+          "drugName": "Atropine ointment",
+          "formulation": "ophthalmic ointment",
+          "route": "topical",
+          "clientInfo": "This medication is to help dilate the pupil and improve comfort. Effects can last up to a couple weeks in a normal eye - please wash your hands after use. Atropine is very bitter and may induce drooling if it drains down to the nose where it can be licked.",
+          "dose": "a small amount (1/4\" strip)",
+          "blurb": "* Used primarily for cycloplegia to reduce ciliary body spasm (e.g. ulcerative keratitis) or to dilate the pupil (to prevent 360 degree synechiae and iris bombe) in uveitis \n* Frequent use can result in decreased tear production so care should be taken with concurrent KCS (at least add in frequent lubrication) \n* :horse: Atropine can slow GI motility which is a concern for colic - however, there is scant evidence of this and [a](https://www.ncbi.nlm.nih.gov/pubmed/29154707) [few](https://www.ncbi.nlm.nih.gov/pubmed/27308887) [studies](https://www.ncbi.nlm.nih.gov/pubmed/22657933) suggesting there is no significant clinical effect of topical atropine (up to QID) in horses \n* :tongue::sweat_drops: Solution can drip down the nasolacrimal duct and result in significant drooling (medication is quite bitter), ointment can too - maybe less likely."
+        },
+        "eye": "OU",
+        "frequency": "BID"
+      }
     ]
   }
 }

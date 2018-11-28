@@ -279,12 +279,14 @@
 
             <v-flex>
             <v-card>
-              <v-card-title primary-title>
-                Want a quick and dirty template for a specific ophthalmic condition? If you know what you're doing click the below button:
-              </v-card-title>
-              <ophtho-drug-template
-                v-on:append-to-drugList="appendDrugs($event)"
-              ></ophtho-drug-template>
+              <v-tooltip top>
+                        <ophtho-drug-template slot="activator"
+                          v-on:append-to-drugList="appendDrugs($event)"
+                        ></ophtho-drug-template>
+                <span>
+                    Want a quick and dirty template for a specific ophthalmic condition?<br> If you know what you're doing click the below button:
+                </span>
+              </v-tooltip>
             </v-card>
             </v-flex>
           </v-flex>
@@ -306,7 +308,6 @@
                   </v-radio-group>
                 </div>
               </v-card-title>
-
             </v-card>
           </v-flex>
 
@@ -315,22 +316,33 @@
     </v-card>
     <v-card>
       <v-container>
-        <v-btn 
-          v-shortkey="['ctrl', 'c']" 
-          @shortkey="doCopy()" 
-          @click="doCopy()"
-        > (Ctrl-C) Copy to Clipboard</v-btn>
-        <v-btn 
-          @click="clearDrugList()"
-          color="warning"
-        >Clear List - Reset</v-btn>
-        <v-textarea 
-          outline 
-          v-model="instructions" 
-          placeholder="Medication instructions here." 
-          rows="35" 
-          readonly>
-        </v-textarea>
+        <v-layout row>
+          <v-btn 
+            v-shortkey="['ctrl', 'c']" 
+            @shortkey="doCopy()" 
+            @click="doCopy()"
+            block
+          > (Ctrl-C) Copy to Clipboard</v-btn>
+          <v-btn 
+            @click="popDrugList()"
+            color="warning"
+            block
+          >Remove Last </v-btn>
+          <v-btn 
+            @click="clearDrugList()"
+            color="error"
+            block
+          >Clear List - Reset</v-btn>
+        </v-layout>
+        <v-layout>
+          <v-textarea 
+            outline 
+            v-model="instructions" 
+            placeholder="Medication instructions here." 
+            rows="35" 
+            >
+          </v-textarea>
+        </v-layout>
       </v-container>
     </v-card>
   </v-flex>
@@ -409,6 +421,9 @@ export default {
     };
   },
   methods: {
+    popDrugList: function() {
+      this.drugList.pop();
+    },
     clearDrugList: function() {
       this.drugList = [];
     },

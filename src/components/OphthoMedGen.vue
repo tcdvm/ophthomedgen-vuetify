@@ -23,6 +23,7 @@
           '8': ['8'],
           '9': ['9'],
           '0': ['0'],
+          'e': ['e'],
           'esc': ['esc'],
           'enter': ['enter']
         }" 
@@ -37,20 +38,18 @@
       <v-container>
         <v-layout>
         <v-flex sm5>
-          <v-card>
-            <v-list>
-              <v-list-tile v-for="(value, key) in drugClasses" :key="key">
-                <v-list-tile-content>
-                  <class-button
-                    v-on:select-class="selectClass($event)"
-                    v-on:change-info="classInfo = $event"
-                    :drugclass="value.drugClass"
-                  >{{value.buttonText}}
-                  </class-button>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </v-card>
+          <v-list>
+            <v-list-tile v-for="(value, key) in drugClasses" :key="key">
+              <v-list-tile-content>
+                <class-button
+                  v-on:select-class="selectClass($event)"
+                  v-on:change-info="classInfo = $event"
+                  :drugclass="value.drugClass"
+                >{{value.buttonText}}
+                </class-button>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
         </v-flex>
 
         <!-- INFO CARD -->
@@ -87,67 +86,12 @@
       <v-container>
         <v-layout>
           <v-flex sm5>
-            <div v-if="drugClass == 'antibiotic'">
-              <v-btn 
-                v-for="(drug, index) in antibiotics" 
-                :key=index
-                @click="selectDrug(index)" 
-                @mouseover="drugInfoUpdate(index)"
-                class="bigButton"
-              >
-              <!-- eslint-disable-next-line  -->
-              {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
-              </v-btn>
-            </div>
-
-            <div v-if="drugClass == 'antiinflammatory'">
-                <v-btn 
-                  v-for="(drug, index) in antiinflammatories" 
-                  :key=index
-                  @click="selectDrug(index)" 
-                  @mouseover="drugInfoUpdate(index)"
-                  class="bigButton"
-                >
-                <!-- eslint-disable-next-line  -->
-                {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
-                </v-btn>
-            </div>
-            <div v-if="drugClass == 'glaucoma'">
-                <v-btn 
-                  v-for="(drug, index) in glaucomameds" 
-                  :key=index
-                  @click="selectDrug(index)" 
-                  @mouseover="drugInfoUpdate(index)"
-                  class="bigButton"
-                >
-                <!-- eslint-disable-next-line  -->
-                {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
-                </v-btn>
-            </div>
-            <div v-if="drugClass == 'kcs'">
-                <v-btn 
-                  v-for="(drug, index) in kcsmeds" 
-                  :key=index
-                  @click="selectDrug(index)" 
-                  @mouseover="drugInfoUpdate(index)"
-                  class="bigButton"
-                >
-                <!-- eslint-disable-next-line  -->
-                {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
-                </v-btn>
-            </div>
-            <div v-if="drugClass == 'misc'">
-                <v-btn 
-                  v-for="(drug, index) in miscmeds" 
-                  :key=index
-                  @click="selectDrug(index)" 
-                  @mouseover="drugInfoUpdate(index)"
-                  class="bigButton"
-                >
-                <!-- eslint-disable-next-line  -->
-                {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
-                </v-btn>
-            </div>
+            <drug-button-list
+              :drugList="getDrugList()"
+              v-on:select-drug="selectDrug($event)"
+              v-on:change-info="drugInfoUpdate($event)"
+            >
+            </drug-button-list>
             <v-btn class="regButton" color="light-blue lighten-4" @click="this.prevState">
               (esc) Go to prev step
               <v-icon dark right>backspace</v-icon>
@@ -294,7 +238,7 @@
             <v-card>
               <v-card-title primary-title>
                 <div>
-                  <h3>E-collar:</h3>
+                  <h3>(E)-collar:</h3>
                   <v-radio-group v-model="ecollar" mt-0>
                     <v-radio value="">
                       <div slot="label">Not needed (no text)</div>
@@ -321,18 +265,21 @@
             v-shortkey="['ctrl', 'c']" 
             @shortkey="doCopy()" 
             @click="doCopy()"
-            block
+            class="drugListEditButton"
+            outline
           > (Ctrl-C) Copy to Clipboard</v-btn>
           <v-btn 
             @click="popDrugList()"
-            color="warning"
-            block
+            color="light-blue"
+            class="drugListEditButton"
+            outline
           >Remove Last </v-btn>
           <v-btn 
             @click="clearDrugList()"
-            color="error"
-            block
-          >Clear List - Reset</v-btn>
+            color="indigo"
+            class="drugListEditButton"
+            outline
+          >Clear All</v-btn>
         </v-layout>
         <v-layout>
           <v-textarea 
@@ -377,6 +324,7 @@ import "vue-simple-markdown/dist/vue-simple-markdown.css";
 import Vue from "vue";
 import SelectionStepper from "./SelectionStepper";
 import ClassButton from "./ClassButton";
+import DrugButtonList from "./DrugButtonList";
 import DrugClassInfoPanel from "./DrugClassInfoPanel";
 import OphthoDrugTemplate from "./OphthoDrugTemplate";
 
@@ -386,6 +334,7 @@ export default {
   components: {
     SelectionStepper,
     ClassButton,
+    DrugButtonList,
     DrugClassInfoPanel,
     OphthoDrugTemplate
   },
@@ -421,6 +370,16 @@ export default {
     };
   },
   methods: {
+    getDrugList: function() {
+      const drugClassDrugList = {
+        antibiotic: drugs.Antibiotics,
+        antiinflammatory: drugs.Antiinflammatories,
+        glaucoma: drugs.Glaucoma,
+        kcs: drugs.KCS,
+        misc: drugs.Misc
+      };
+      return drugClassDrugList[this.drugClass];
+    },
     popDrugList: function() {
       this.drugList.pop();
     },
@@ -469,19 +428,19 @@ export default {
           break;
       }
     },
-    changeInfo: function(needInfo) {
-      switch (needInfo) {
-        case "antibiotics":
-          this.classInfo.title = "Antibiotics";
-          this.classInfo.srcImage = "antibiotic-class-ulcer.png";
-          this.classInfo.text =
-            "Topical antibiotics are indicated for treatment of corneal ulcerations. Considerations when choosing an antibiotic include <b>blah blah blah</b>";
-          break;
-        default:
-          this.resetInfo();
-          break;
-      }
-    },
+    // changeInfo: function(needInfo) {
+    //   switch (needInfo) {
+    //     case "antibiotics":
+    //       this.classInfo.title = "Antibiotics";
+    //       this.classInfo.srcImage = "antibiotic-class-ulcer.png";
+    //       this.classInfo.text =
+    //         "Topical antibiotics are indicated for treatment of corneal ulcerations. Considerations when choosing an antibiotic include <b>blah blah blah</b>";
+    //       break;
+    //     default:
+    //       this.resetInfo();
+    //       break;
+    //   }
+    // },
     selectClass: function(drugclass) {
       this.drugClass = drugclass;
       // this.activeClassBtn = drugclass;
@@ -563,6 +522,10 @@ export default {
     },
     handleShortCut(event) {
       switch (event.srcKey) {
+        case "e":
+          if (this.ecollar == "") this.ecollar = "alltimes";
+          else if (this.ecollar == "alltimes") this.ecollar = "prn";
+          else if (this.ecollar == "prn") this.ecollar = "";
         case "enter":
           if (this.state == "ready") this.addDrug();
           break;
@@ -815,11 +778,7 @@ function toEnglish(term) {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-* {
-  text-align: left;
-}
-
-.fade-enter-active,
+. .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
@@ -828,10 +787,14 @@ function toEnglish(term) {
 }
 
 >>> .v-btn__content {
-  justify-content: left;
+}
+
+>>> .drugListEditButton {
+  font-size: 12px;
 }
 
 >>> .bigButton {
+  justify-content: left;
   text-transform: none;
   min-width: 250px;
 }

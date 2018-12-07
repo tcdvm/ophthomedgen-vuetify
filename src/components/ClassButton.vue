@@ -15,10 +15,11 @@ export default {
       required: true
     }
   }
-
-}
+};
 </script>
 
-<style>
-
+<style scoped>
+>>> .v-btn__content {
+  justify-content: left;
+}
 </style>

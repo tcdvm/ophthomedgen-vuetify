@@ -25,14 +25,14 @@
           'enter': ['enter']
         }"
           @shortkey="handleShortCut"
-        >Test</a>
+        >shortcuts</a>
         <v-stepper v-model="step" vertical>
           <v-stepper-step :complete="step > 1" step="1">Choose a class of medication</v-stepper-step>
           <v-stepper-content step="1">
             <!-- Medication Class Selector -->
             <v-container>
               <v-layout>
-                <v-flex sm5>
+                <v-flex sm4>
                   <v-list>
                     <v-list-tile v-for="(value, key) in drugClasses" :key="key">
                       <v-list-tile-content>
@@ -78,7 +78,7 @@
           <v-stepper-content step="2">
             <v-container>
               <v-layout>
-                <v-flex sm5>
+                <v-flex sm4>
                   <drug-button-list
                     :drugList="getDrugList()"
                     v-on:select-drug="selectDrug($event)"
@@ -180,83 +180,60 @@
     </v-flex>
 
     <v-flex lg5>
-      <v-card>
-        <v-container>
-          <v-layout>
-            <v-flex sm6>
-              <v-flex>
-                <v-card>
-                  <v-card-title primary-title>
-                    <div>
-                      <h3>Drug to be Added:</h3>
-                      <div v-if="drug.drugName">{{drug.drugName}} {{sigEye}} {{sigFrequency}}</div>
-                      <div class="font-weight-light" v-else>Selections/Sig shown here!</div>
-                    </div>
-                  </v-card-title>
-                </v-card>
-              </v-flex>
-              <v-flex xs12>
-                <v-card>
-                  <v-tooltip top>
-                    <ophtho-drug-template
-                      slot="activator"
-                      v-on:append-to-drugList="appendDrugs($event)"
-                    ></ophtho-drug-template>
-                    <span>Want a quick and dirty template for a specific ophthalmic condition?
-                      <br>If you know what you're doing click the below button:
-                    </span>
-                  </v-tooltip>
-                </v-card>
-              </v-flex>
-            </v-flex>
-            <v-flex sm6>
-              <v-flex>
-                <v-card>
-                  <v-card-title primary-title>
-                    <div>
-                      <h3>(E)-collar:</h3>
-                      <v-radio-group v-model="ecollar" mt-0>
-                        <v-radio value>
-                          <div slot="label">Not needed (no text)</div>
-                        </v-radio>
-                        <v-radio value="alltimes">
-                          <div slot="label">At all times</div>
-                        </v-radio>
-                        <v-radio value="prn">
-                          <div slot="label">When unmonitored</div>
-                        </v-radio>
-                      </v-radio-group>
-                    </div>
-                  </v-card-title>
-                </v-card>
-              </v-flex>
+      <v-container>
+          <v-layout justify-center column>
+            <v-flex>
+              <v-card>
+                <h3>(E)-collar:</h3>
+                <v-radio-group v-model="ecollar" mt-0 row>
+                  <v-radio value>
+                    <div slot="label">Not needed (no text)</div>
+                  </v-radio>
+                  <v-radio value="alltimes">
+                    <div slot="label">At all times</div>
+                  </v-radio>
+                  <v-radio value="prn">
+                    <div slot="label">When unmonitored</div>
+                  </v-radio>
+                </v-radio-group>
+              </v-card>
             </v-flex>
           </v-layout>
-        </v-container>
-      </v-card>
+      </v-container>
       <v-card>
-        <v-container>
-          <v-layout row>
-            <v-flex>
+        <v-container grid-list-xs>
+          <v-layout align-center justify-center>
+            <v-flex md-3>
               <v-btn
                 v-shortkey="['ctrl', 'c']"
                 @shortkey="doCopy()"
                 @click="doCopy()"
-                class="drugListEditButton"
-                outline
+                flat
               >(Ctrl-C) Copy to Clipboard</v-btn>
+            </v-flex>
+            <v-flex md-3>
               <v-btn
+                flat
                 @click="popDrugList()"
-                color="light-blue"
-                class="drugListEditButton"
-                outline
               >Remove Last</v-btn>
+            </v-flex>
+            <v-flex md-3>
               <v-btn
-                @click="clearDrugList()"
                 color="indigo"
-                class="drugListEditButton"
-                outline
+                @click="clearDrugList()"
+                flat
               >Clear All</v-btn>
+            </v-flex>
+            <v-flex md-3>
+              <v-tooltip top>
+                <ophtho-drug-template
+                  slot="activator"
+                  v-on:append-to-drugList="appendDrugs($event)"
+                ></ophtho-drug-template>
+                <span>Want a quick and dirty template for a specific ophthalmic condition?
+                  <br>If you know what you're doing click the below button:
+                </span>
+              </v-tooltip>
             </v-flex>
           </v-layout>
           <v-layout>
@@ -505,6 +482,7 @@ export default {
           if (this.ecollar == "") this.ecollar = "alltimes";
           else if (this.ecollar == "alltimes") this.ecollar = "prn";
           else if (this.ecollar == "prn") this.ecollar = "";
+          break;
         case "enter":
           if (this.state == "ready") this.addDrug();
           break;
@@ -757,7 +735,7 @@ function toEnglish(term) {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-. .fade-enter-active,
+.fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
@@ -769,13 +747,14 @@ function toEnglish(term) {
 }
 
 >>> .drugListEditButton {
-  font-size: 12px;
+  font-size: 10.5px;
+  font-weight: bold;
 }
 
 >>> .bigButton {
   justify-content: left;
   text-transform: none;
-  min-width: 250px;
+  min-width: 240px;
 }
 >>> .regButton {
   text-transform: none;

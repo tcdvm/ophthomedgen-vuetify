@@ -1,7 +1,9 @@
 <template>
-  <v-dialog v-model="dialog" width="500" >
-    <v-btn slot="activator" color="primary" dark>
-      <span class="mr-2">Ophtho Drug Templates</span>
+  <v-dialog v-model="dialog" width="500" class="hey">
+    <v-btn 
+      slot="activator" 
+      flat>
+      <span class="mr-2">Templates</span>
     </v-btn>
     <v-card>
       <v-card-title

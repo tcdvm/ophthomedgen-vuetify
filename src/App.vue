@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app >
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Ophtho Drugs</span>
@@ -47,17 +47,12 @@
     </v-toolbar>
 
     <v-content>
-      <v-container fluid grid-list-md>
-        <!-- <v-layout row wrap> -->
-          <!-- <v-flex lg6> -->
-            <OphthoMedGen/>
-          <!-- </v-flex> -->
-          <!-- <v-flex lg6> -->
-            <!-- <HelloWorld/> -->
-          <!-- </v-flex> -->
-        <!-- </v-layout> -->
+      <v-container grid-list-md>
+          <OphthoMedGen/>
       </v-container>
     </v-content>
+    <v-footer app></v-footer>
+
   </v-app>
 </template>
 

@@ -132,7 +132,7 @@
                 <v-icon dark right>backspace</v-icon>
               </v-btn>
 
-              <v-alert :value="true" type="primary">
+              <v-alert :value="true" type="info">
                 <strong>Need to do different frequencies of the same drug for different eyes? Change to the "Enter Medications" tab to edit the directions directly.</strong>
               </v-alert>
             </v-stepper-content>
@@ -315,7 +315,7 @@ export default {
       drugClass: "",
       activeClassBtn: "",
       activeDrugBtn: null,
-      activeTab: 1,
+      activeTab: 0,
       ecollar: "", // null (no cone), all (at all times), prn (unmonitored or if pawing noted)
       drug: { drugName: "" },
       sigEye: "",
@@ -353,7 +353,7 @@ export default {
           " " +
           (this.sigFrequency
             ? toEnglish(this.sigFrequency)
-            : "ENTER_FREQUENCY") +
+            : "___ENTER_FREQUENCY___") +
           ".  " +
           this.drug.clientInfo;
       }

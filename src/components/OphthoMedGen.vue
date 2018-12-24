@@ -5,32 +5,14 @@
       <v-btn dark flat @click="snackbar = false">Close</v-btn>
     </v-snackbar>
     <v-flex lg7>
-      <section>
-        <a
-          class="button"
-          style="display: none;"
-          v-shortkey="{ 
-          '1': ['1'],
-          '2': ['2'],
-          '3': ['3'],
-          '4': ['4'],
-          '5': ['5'],
-          '6': ['6'],
-          '7': ['7'],
-          '8': ['8'],
-          '9': ['9'],
-          '0': ['0'],
-          'e': ['e'],
-          'esc': ['esc'],
-          'enter': ['enter']
-        }"
-          @shortkey="handleShortCut"
-        >shortcuts</a>
-        <v-stepper v-model="step" vertical>
-          <v-stepper-step :complete="step > 1" step="1">Choose a class of medication</v-stepper-step>
-          <v-stepper-content step="1">
-            <!-- Medication Class Selector -->
-            <v-container>
+      <v-tabs v-model="activeTab" color="primary" dark slider-color="yellow">
+        <v-tab key="selectmeds" ripple>Select Medications</v-tab>
+        <v-tab key="entermeds" ripple @click="addSelectedMed">Enter Medications</v-tab>
+        <v-tab-item key="selectmeds">
+          <v-stepper v-model="step" vertical>
+            <v-stepper-step :complete="step > 1" step="1">Choose a class of medication</v-stepper-step>
+            <v-stepper-content step="1">
+              <!-- Medication Class Selector -->
               <v-layout>
                 <v-flex sm4>
                   <v-list>
@@ -47,7 +29,7 @@
                 </v-flex>
 
                 <!-- INFO CARD -->
-                <v-flex sm7>
+                <v-flex sm7 pb-2>
                   <drug-class-info-panel
                     v-for="(value, key) in drugClasses"
                     :key="key"
@@ -70,13 +52,11 @@
                   </v-card>
                 </v-flex>
               </v-layout>
-            </v-container>
-          </v-stepper-content>
+            </v-stepper-content>
 
-          <v-stepper-step :complete="step > 2" step="2">Choose the medication</v-stepper-step>
+            <v-stepper-step :complete="step > 2" step="2">Choose the medication</v-stepper-step>
 
-          <v-stepper-content step="2">
-            <v-container>
+            <v-stepper-content step="2">
               <v-layout>
                 <v-flex sm4>
                   <drug-button-list
@@ -92,7 +72,7 @@
                     <v-icon dark right>backspace</v-icon>
                   </v-btn>
                 </v-flex>
-                <v-flex sm7>
+                <v-flex sm7 pb-2>
                   <v-card>
                     <v-card-title primary-title>
                       <div>
@@ -108,151 +88,164 @@
                   </v-card>
                 </v-flex>
               </v-layout>
-            </v-container>
-          </v-stepper-content>
+            </v-stepper-content>
 
-          <v-stepper-step :complete="step > 3" step="3">Choose the treated eye(s)</v-stepper-step>
+            <v-stepper-step :complete="step > 3" step="3">Choose the treated eye(s)</v-stepper-step>
 
-          <v-stepper-content step="3">
-            <section v-show="state == 'chooseEye' || state =='chooseFreq' || state == 'ready'">
-              <v-btn @click="selectEye('OS')">(1) OS</v-btn>
+            <v-stepper-content step="3">
+              <section v-show="state == 'chooseEye' || state =='chooseFreq' || state == 'ready'">
+                <v-btn @click="selectEye('OS')">(1) OS</v-btn>
 
-              <v-btn @click="selectEye('OD')">(2) OD</v-btn>
+                <v-btn @click="selectEye('OD')">(2) OD</v-btn>
 
-              <v-btn @click="selectEye('OU')">(3) OU</v-btn>
-            </section>
-            <v-btn
-              class="regButton"
-              color="light-blue lighten-4"
-              @click="this.prevState"
-            >(esc) Go to prev step
-              <v-icon dark right>backspace</v-icon>
-            </v-btn>
-            <!-- <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-      <v-btn color="primary" @click="e6 = 4">Continue</v-btn>
-            <v-btn flat>Cancel</v-btn>-->
-          </v-stepper-content>
+                <v-btn @click="selectEye('OU')">(3) OU</v-btn>
+              </section>
+              <v-btn
+                class="regButton"
+                color="light-blue lighten-4"
+                @click="this.prevState"
+              >(esc) Go to prev step
+                <v-icon dark right>backspace</v-icon>
+              </v-btn>
+            </v-stepper-content>
 
-          <v-stepper-step :complete="step > 4" step="4">Choose the Frequency</v-stepper-step>
-          <v-stepper-content step="4">
-            <!-- Frequency Selector -->
-            <v-btn @click="selectFreq('q24h')">(1) q24h</v-btn>
+            <v-stepper-step :complete="step > 4" step="4">Choose the Frequency</v-stepper-step>
+            <v-stepper-content step="4">
+              <!-- Frequency Selector -->
+              <v-btn @click="selectFreq('q24h')">(1) q24h</v-btn>
 
-            <v-btn @click="selectFreq('BID')">(2) BID</v-btn>
+              <v-btn @click="selectFreq('BID')">(2) BID</v-btn>
 
-            <v-btn @click="selectFreq('TID')">(3) TID</v-btn>
+              <v-btn @click="selectFreq('TID')">(3) TID</v-btn>
 
-            <v-btn @click="selectFreq('QID')">(4) QID</v-btn>
+              <v-btn @click="selectFreq('QID')">(4) QID</v-btn>
 
-            <v-btn @click="selectFreq('q4h')">(5) q4h</v-btn>
+              <v-btn @click="selectFreq('q4h')">(5) q4h</v-btn>
 
-            <v-btn @click="selectFreq('q2h')">(6) q2h</v-btn>
+              <v-btn @click="selectFreq('q2h')">(6) q2h</v-btn>
 
-            <v-btn
-              class="regButton"
-              color="light-blue lighten-4"
-              @click="this.prevState"
-            >(esc) Go to prev step
-              <v-icon dark right>backspace</v-icon>
-            </v-btn>
+              <v-btn
+                class="regButton"
+                color="light-blue lighten-4"
+                @click="this.prevState"
+              >(esc) Go to prev step
+                <v-icon dark right>backspace</v-icon>
+              </v-btn>
 
-            <v-alert :value="true" type="warning">
-              Need to do different frequencies of the same drug for different eyes? Sorry. You'll have to change that manually (after you paste).
-              <strong>Don't Forget!</strong>
-            </v-alert>
+              <v-alert :value="true" type="warning">
+                Need to do different frequencies of the same drug for different eyes? Sorry. You'll have to change that manually (after you paste).
+                <strong>Don't Forget!</strong>
+              </v-alert>
+            </v-stepper-content>
 
-            <!-- <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-      <v-btn color="primary" @click="e6 = 1">Continue</v-btn>
-            <v-btn flat>Cancel</v-btn>-->
-          </v-stepper-content>
+            <v-stepper-step step="5">Hit Enter or Click "Add" to Add the medication</v-stepper-step>
+            <v-stepper-content step="5">
+              <v-btn @click="addDrug()">
+                (Enter) Add {{this.drug.drugName}} {{this.sigEye}} {{this.sigFrequency}}
+                <v-icon dark right>add_circle</v-icon>
+              </v-btn>
+            </v-stepper-content>
+          </v-stepper>
+        </v-tab-item>
 
-          <v-stepper-step step="5">Hit Enter or Click "Add" to Add the medication</v-stepper-step>
-          <v-stepper-content step="5">
-            <v-btn @click="addDrug()">
-              (Enter) Add {{this.drug.drugName}} {{this.sigEye}} {{this.sigFrequency}}
-              <v-icon dark right>add_circle</v-icon>
-            </v-btn>
-          </v-stepper-content>
-        </v-stepper>
-
-        <!-- <hr> -->
-      </section>
-    </v-flex>
-
-    <v-flex lg5>
-      <v-container>
-          <v-layout justify-center column>
+        <v-tab-item key="entermeds">
+          <v-layout align-center justify-center>
             <v-flex>
-              <v-card>
-                <h3>(E)-collar:</h3>
-                <v-radio-group v-model="ecollar" mt-0 row>
-                  <v-radio value>
-                    <div slot="label">Not needed (no text)</div>
-                  </v-radio>
-                  <v-radio value="alltimes">
-                    <div slot="label">At all times</div>
-                  </v-radio>
-                  <v-radio value="prn">
-                    <div slot="label">When unmonitored</div>
-                  </v-radio>
-                </v-radio-group>
+              <v-card flat>
+                <v-card-title primary-title>
+                  <h3 class="headline">Write Custom Medication Instructions</h3>
+                </v-card-title>
+                <v-card-text>
+                  <v-form ref="form">
+                    <v-textarea
+                      v-model="entermedsText"
+                      clearable
+                      outline
+                      label="Enter the medications instructions here"
+                      solo
+                      hint="E.g. Prednisone 5 mg tablets - Please give 1 tablet orally twice daily. Side effects include... Do not stop abrupty."
+                    ></v-textarea>
+                    <v-btn @click="addCustomDrug">submit</v-btn>
+                  </v-form>
+                </v-card-text>
               </v-card>
             </v-flex>
           </v-layout>
-      </v-container>
-      <v-card>
-        <v-container grid-list-xs>
-          <v-layout align-center justify-center>
-            <v-flex md-3>
-              <v-btn
-                v-shortkey="['ctrl', 'c']"
-                @shortkey="doCopy()"
-                @click="doCopy()"
-                flat
-              >(Ctrl-C) Copy to Clipboard</v-btn>
-            </v-flex>
-            <v-flex md-3>
-              <v-btn
-                flat
-                @click="popDrugList()"
-              >Remove Last</v-btn>
-            </v-flex>
-            <v-flex md-3>
-              <v-btn
-                color="indigo"
-                @click="clearDrugList()"
-                flat
-              >Clear All</v-btn>
-            </v-flex>
-            <v-flex md-3>
-              <v-tooltip top>
-                <ophtho-drug-template
-                  slot="activator"
-                  v-on:append-to-drugList="appendDrugs($event)"
-                ></ophtho-drug-template>
-                <span>Want a quick and dirty template for a specific ophthalmic condition?
-                  <br>If you know what you're doing click the below button:
-                </span>
-              </v-tooltip>
-            </v-flex>
-          </v-layout>
-          <v-layout>
-            <v-flex>
-              <v-textarea
-                outline
-                v-model="instructions"
-                placeholder="Medication instructions here."
-                rows="35"
-              ></v-textarea>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card>
+        </v-tab-item>
+      </v-tabs>
     </v-flex>
-    <v-footer height="auto" color="primary lighten-1">
-      <v-layout justify-center row wrap>
-        <v-spacer></v-spacer>
-        <v-card>Drug to be added:
+
+    <v-flex lg5>
+      <v-layout justify-center column>
+        <v-flex lg12>
+          <v-card>
+            <v-card-text>
+              <h3 v-if="activeTab==0">(E)-collar:</h3>
+              <h3 v-if="activeTab==1">E-collar:</h3>
+              <v-radio-group v-model="ecollar" mt-0 row>
+                <v-radio value>
+                  <div slot="label">Not needed (no text)</div>
+                </v-radio>
+                <v-radio value="alltimes">
+                  <div slot="label">At all times</div>
+                </v-radio>
+                <v-radio value="prn">
+                  <div slot="label">When unmonitored</div>
+                </v-radio>
+              </v-radio-group>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex>
+          <v-card>
+            <v-layout align-center justify-center>
+              <v-flex>
+                <v-btn
+                  v-shortkey="['ctrl', 'c']"
+                  @shortkey="doCopy()"
+                  @click="doCopy()"
+                  flat
+                >(Ctrl-C) Copy to Clipboard</v-btn>
+              </v-flex>
+              <v-flex>
+                <v-btn flat @click="popDrugList()">Remove Last</v-btn>
+              </v-flex>
+              <v-flex>
+                <v-btn color="indigo" @click="clearDrugList()" flat>Clear All</v-btn>
+              </v-flex>
+              <v-flex>
+                <v-tooltip top>
+                  <ophtho-drug-template
+                    slot="activator"
+                    v-on:append-to-drugList="appendDrugs($event)"
+                  ></ophtho-drug-template>
+                  <span>Want a quick and dirty template for a specific ophthalmic condition?
+                    <br>If you know what you're doing click the below button:
+                  </span>
+                </v-tooltip>
+              </v-flex>
+            </v-layout>
+            <v-layout>
+              <v-flex>
+                <v-textarea
+                  class="padded-textarea"
+                  outline
+                  v-model="instructions"
+                  placeholder="Medication instructions here."
+                  rows="35"
+                  id="instructions"
+                ></v-textarea>
+              </v-flex>
+            </v-layout>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-flex>
+    <v-flex lg12>
+      <v-card>
+        <v-card-text>Drug to be added:
           <br>
           Drug Class: {{drugClass}}
           <br>
@@ -266,9 +259,29 @@
           <ul>
             <p v-for="(item, key) in drugList" :key="key">{{ item }}</p>
           </ul>
-        </v-card>
-      </v-layout>
-    </v-footer>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+    <a
+      class="button"
+      style="display: none;"
+      v-shortkey="{ 
+          '1': ['1'],
+          '2': ['2'],
+          '3': ['3'],
+          '4': ['4'],
+          '5': ['5'],
+          '6': ['6'],
+          '7': ['7'],
+          '8': ['8'],
+          '9': ['9'],
+          '0': ['0'],
+          'e': ['e'],
+          'esc': ['esc'],
+          'enter': ['enter']
+        }"
+      @shortkey="handleShortCut"
+    >shortcuts</a>
   </v-layout>
 </template>
 
@@ -297,13 +310,15 @@ export default {
   data: function() {
     return {
       drugClasses,
+      entermedsText: "",
       step: 1,
       state: "chooseClass", // chooseClass, chooseDrug, chooseEye, chooseFreq, ready
       drugClass: "",
       activeClassBtn: "",
       activeDrugBtn: null,
+      activeTab: 1,
       ecollar: "", // null (no cone), all (at all times), prn (unmonitored or if pawing noted)
-      drug: {},
+      drug: { drugName: "" },
       sigEye: "",
       sigFrequency: "",
       drugList: [],
@@ -326,6 +341,30 @@ export default {
     };
   },
   methods: {
+    addSelectedMed: function() {
+      if (this.drug.drugName && this.drug.formulation) {
+        this.entermedsText =
+          this.drug.drugName +
+          " " +
+          this.drug.formulation +
+          " - Please apply " +
+          (this.drug.dose ? this.drug.dose : "___ENTER_DRUG_DOSE___") +
+          " to " +
+          (this.sigEye ? toEnglish(this.sigEye) : "___ENTER_EYES___") +
+          " " +
+          (this.sigFrequency
+            ? toEnglish(this.sigFrequency)
+            : "ENTER_FREQUENCY") +
+          ".  " +
+          this.drug.clientInfo;
+      }
+    },
+    scrollToEnd: function() {
+      if (typeof this.$el !== "undefined") {
+        var instructions = this.$el.querySelector("#instructions");
+        instructions.scrollTop = instructions.scrollHeight;
+      }
+    },
     getDrugList: function() {
       const drugClassDrugList = {
         antibiotic: drugs.Antibiotics,
@@ -384,22 +423,8 @@ export default {
           break;
       }
     },
-    // changeInfo: function(needInfo) {
-    //   switch (needInfo) {
-    //     case "antibiotics":
-    //       this.classInfo.title = "Antibiotics";
-    //       this.classInfo.srcImage = "antibiotic-class-ulcer.png";
-    //       this.classInfo.text =
-    //         "Topical antibiotics are indicated for treatment of corneal ulcerations. Considerations when choosing an antibiotic include <b>blah blah blah</b>";
-    //       break;
-    //     default:
-    //       this.resetInfo();
-    //       break;
-    //   }
-    // },
     selectClass: function(drugclass) {
       this.drugClass = drugclass;
-      // this.activeClassBtn = drugclass;
       this.state = "chooseDrug";
       this.step = 2;
     },
@@ -442,7 +467,7 @@ export default {
         eye: this.sigEye,
         frequency: this.sigFrequency
       });
-      this.drug = "";
+      this.drug = { drugName: "" };
       this.drugClass = "";
       this.sigEye = "";
       this.sigFrequency = "";
@@ -451,27 +476,39 @@ export default {
       this.state = "chooseClass";
       this.step = 1;
     },
+    addCustomDrug: function() {
+      this.drugList.push({ customText: this.entermedsText });
+      this.entermedsText = "";
+    },
     prevState: function() {
       switch (this.state) {
         case "chooseClass":
         case "chooseDrug":
           this.drugClass = "";
           this.activeClassBtn = "";
+          this.drug = { drugName: "" };
+          this.sigEye = "";
+          this.sigFrequency = "";
           this.state = "chooseClass";
           this.step = this.step > 1 ? this.step - 1 : 1;
           break;
         case "chooseEye":
-          this.drug = {};
+          this.sigEye = "";
+          this.sigFrequency = "";
           this.activeDrugBtn = null;
+          this.drug = { drugName: "" };
           this.state = "chooseDrug";
           this.step = this.step > 1 ? this.step - 1 : 1;
           break;
         case "chooseFreq":
+          this.sigEye = "";
+          this.sigFrequency = "";
           this.state = "chooseEye";
           this.step = this.step > 1 ? this.step - 1 : 1;
           break;
         case "ready":
           this.state = "chooseFreq";
+          this.sigFrequency = "";
           this.step = this.step > 1 ? this.step - 1 : 1;
           break;
       }
@@ -482,6 +519,7 @@ export default {
           if (this.ecollar == "") this.ecollar = "alltimes";
           else if (this.ecollar == "alltimes") this.ecollar = "prn";
           else if (this.ecollar == "prn") this.ecollar = "";
+          this.scrollToEnd();
           break;
         case "enter":
           if (this.state == "ready") this.addDrug();
@@ -655,30 +693,47 @@ export default {
     instructions: function() {
       let medicationInstructions = "";
       let numTopical = 0;
+      let i = 0;
 
-      for (let i = 0; i < this.drugList.length; i++) {
+      for (i = 0; i < this.drugList.length; i++) {
         let drugInstruction = "";
 
         if (this.drugList.length > 1) {
           drugInstruction += (i + 1).toString() + ". ";
         }
 
-        if (this.drugList[i].drug.route == "topical") numTopical++;
+        if (this.drugList[i].drug) {
+          if (this.drugList[i].drug.route == "topical") numTopical++;
 
-        drugInstruction +=
-          this.drugList[i].drug.drugName +
-          " " +
-          this.drugList[i].drug.formulation +
-          " - Please apply " +
-          this.drugList[i].drug.dose +
-          " to " +
-          toEnglish(this.drugList[i].eye) +
-          " " +
-          toEnglish(this.drugList[i].frequency) +
-          ".  " +
-          this.drugList[i].drug.clientInfo +
-          "\n\n";
+          drugInstruction +=
+            this.drugList[i].drug.drugName +
+            " " +
+            this.drugList[i].drug.formulation +
+            " - Please apply " +
+            this.drugList[i].drug.dose +
+            " to " +
+            toEnglish(this.drugList[i].eye) +
+            " " +
+            toEnglish(this.drugList[i].frequency) +
+            ".  " +
+            this.drugList[i].drug.clientInfo +
+            "\n\n";
+        } else if (this.drugList[i].customText) {
+          drugInstruction += `${this.drugList[i].customText}\n\n`;
+        }
         medicationInstructions += drugInstruction;
+      }
+
+      if (this.activeTab == 0) {
+        if (this.step > 1)
+          medicationInstructions += `\n---- TO BE ADDED (${this.drugClass}): ${
+            this.drug.drugName
+          } ${this.sigEye} ${this.sigFrequency}\n\n`;
+      } else if (this.activeTab == 1) {
+        if (this.entermedsText)
+          medicationInstructions += `\n----- TO BE ADDED: ${
+            this.entermedsText
+          }\n\n`;
       }
 
       if (numTopical > 1) {
@@ -693,6 +748,8 @@ export default {
         medicationInstructions +=
           "** Please ensure that the cone (e-collar) is worn when unsupervised or if you note your pet pawing or rubbing at the eye(s) (e.g. after medications).**\n\n";
       }
+
+      this.scrollToEnd();
       return medicationInstructions;
     }
   }
@@ -743,7 +800,9 @@ function toEnglish(term) {
   opacity: 0;
 }
 
->>> .v-btn__content {
+.padded-textarea {
+  padding: 0px 16px 16px 16px;
+  width: 100%;
 }
 
 >>> .drugListEditButton {
@@ -763,18 +822,4 @@ function toEnglish(term) {
 .v-input--selection-controls {
   margin-top: 0px;
 }
-/* h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-} */
 </style>

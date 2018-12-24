@@ -478,6 +478,14 @@ export default {
     addCustomDrug: function() {
       this.drugList.push({ customText: this.entermedsText });
       this.entermedsText = "";
+      this.drug = { drugName: "" };
+      this.drugClass = "";
+      this.sigEye = "";
+      this.sigFrequency = "";
+      this.activeClassBtn = "";
+      this.activeDrugBtn = null;
+      this.state = "chooseClass";
+      this.step = 1;
     },
     prevState: function() {
       switch (this.state) {

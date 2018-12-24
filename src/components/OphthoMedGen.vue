@@ -132,9 +132,8 @@
                 <v-icon dark right>backspace</v-icon>
               </v-btn>
 
-              <v-alert :value="true" type="warning">
-                Need to do different frequencies of the same drug for different eyes? Sorry. You'll have to change that manually (after you paste).
-                <strong>Don't Forget!</strong>
+              <v-alert :value="true" type="primary">
+                <strong>Need to do different frequencies of the same drug for different eyes? Change to the "Enter Medications" tab to edit the directions directly.</strong>
               </v-alert>
             </v-stepper-content>
 

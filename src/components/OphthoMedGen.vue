@@ -20,8 +20,9 @@
                       <v-list-tile-content>
                         <class-button
                           v-on:select-class="selectClass($event)"
-                          v-on:change-info="classInfo = $event"
+                          v-on:change-info="changeClassInfo($event)"
                           :drugclass="value.drugClass"
+                          :index="key"
                         >{{value.buttonText}}</class-button>
                       </v-list-tile-content>
                     </v-list-tile>
@@ -30,26 +31,16 @@
 
                 <!-- INFO CARD -->
                 <v-flex sm7 pb-2>
-                  <drug-class-info-panel
-                    v-for="(value, key) in drugClasses"
-                    :key="key"
-                    :image="value.image"
-                    :title="value.title"
-                    :panelText="value.panelText"
-                    :seeNotesLink="value.seeNotesLink"
-                    :seeNotesText="value.seeNotesText"
-                    v-show="classInfo == value.drugClass"
-                  ></drug-class-info-panel>
-
-                  <v-card v-show="classInfo == 'hover'">
-                    <v-img src="cat.png" aspect-ratio="2.75"></v-img>
-                    <v-card-title primary-title>
-                      <div>
-                        <h3 class="headline mb-0">Hover your mouse</h3>
-                        <div>To display information about the class of medications as well as see links to more information from your class notes.</div>
-                      </div>
-                    </v-card-title>
-                  </v-card>
+                  <transition name="fade" mode="out-in">
+                    <drug-class-info-panel
+                      :key="drugClass.title"
+                      :image="drugClassInfo.image"
+                      :title="drugClassInfo.title"
+                      :panelText="drugClassInfo.panelText"
+                      :seeNotesLink="drugClassInfo.seeNotesLink"
+                      :seeNotesText="drugClassInfo.seeNotesText"
+                    ></drug-class-info-panel>
+                  </transition>
                 </v-flex>
               </v-layout>
             </v-stepper-content>
@@ -73,7 +64,7 @@
                   </v-btn>
                 </v-flex>
                 <v-flex sm7 pb-2>
-                  <v-card>
+                  <v-card :key="drugInfo.drugName">
                     <v-card-title primary-title>
                       <div>
                         <h3 class="headline mb-0">{{drugInfo.drugName}}</h3>
@@ -298,6 +289,10 @@ import OphthoDrugTemplate from "./OphthoDrugTemplate";
 
 Vue.use(VueSimpleMarkdown);
 
+Vue.component("tab-home", {
+  template: "<div>Home component</div>"
+});
+
 export default {
   components: {
     SelectionStepper,
@@ -326,7 +321,14 @@ export default {
       glaucomameds: drugs.Glaucoma,
       kcsmeds: drugs.KCS,
       miscmeds: drugs.Misc,
-      classInfo: "hover",
+      drugClassInfo: {
+        image: "cat.png",
+        title: "Hover your mouse",
+        panelText:
+          "<div>To display information about the class of medications as well as see links to more information from your class notes.</div>",
+        seeNotesLink: "",
+        seeNotesText: ""
+      },
       drugInfo: {
         drugName: "Medication Information",
         drugFormulation: "",
@@ -340,6 +342,13 @@ export default {
     };
   },
   methods: {
+    changeClassInfo(index) {
+      this.drugClassInfo.image = drugClasses[index].image;
+      this.drugClassInfo.title = drugClasses[index].title;
+      this.drugClassInfo.panelText = drugClasses[index].panelText;
+      this.drugClassInfo.seeNotesLink = drugClasses[index].seeNotesLink;
+      this.drugClassInfo.seeNotesText = drugClasses[index].seeNotesText;
+    },
     addSelectedMed: function() {
       if (this.drug.drugName && this.drug.formulation) {
         this.entermedsText =
@@ -799,11 +808,15 @@ function toEnglish(term) {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
+.fade-enter-active {
+  transition: all 0.3s ease;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(10px);
   opacity: 0;
 }
 

@@ -1,9 +1,6 @@
 <template>
-  <v-card>
-    <v-img
-      :src="image"
-      aspect-ratio="2.75"
-    ></v-img>
+  <v-card :key="title">
+    <v-img :src="image" aspect-ratio="2.75"></v-img>
 
     <v-card-title primary-title>
       <div>
@@ -44,5 +41,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>

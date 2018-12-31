@@ -1,10 +1,11 @@
 <template>
-    <v-btn 
-      class="bigButton" 
-      @click="$emit('select-class', drugclass)"
-      @mouseover="$emit('change-info', drugclass)">
-      <slot></slot>
-    </v-btn>
+  <v-btn
+    class="bigButton"
+    @click="$emit('select-class', drugclass)"
+    @mouseover="$emit('change-info', index)"
+  >
+    <slot></slot>
+  </v-btn>
 </template>
 
 <script>
@@ -13,6 +14,10 @@ export default {
     drugclass: {
       type: String,
       required: true
+    },
+    index: {
+      type: Number,
+      require: true
     }
   }
 };

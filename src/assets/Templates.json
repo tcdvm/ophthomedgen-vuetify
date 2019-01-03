@@ -103,7 +103,7 @@
           "blurb": "* Main indication is for melting corneal ulcers or stromal ulcers where it's obvious some stromal lysis has happened and potentially will continue \n* [Recent study](https://www.ncbi.nlm.nih.gov/pubmed/28414606) showed no improvement in healing times for indolent ulcers, neither did [platelet rich plasma](https://www.ncbi.nlm.nih.gov/pubmed/30272521) \n* Frequency dependent on degree of melting/lysis present - actively melting: q1-2h, stablizing ulcer: q4-6h, epithelializing: q8-12h"
         },
         "eye": "OU",
-        "frequency": "Q2H"
+        "frequency": "q2h"
       }
     ]
   },

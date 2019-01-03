@@ -136,5 +136,95 @@
         "frequency": "BID"
       }
     ]
+  },
+  "Primary Glaucoma": {
+    "ecollar": "",
+    "description": "Primary glaucoma is diagnosed based on exclusion of all other causes of glaucoma - e.g. uveitis, lens luxation, intraocular neoplasia. Latanoprost is potentially contraindicated in some secondary causes so a firm clinical suspicion of primary glaucoma should be had before dispensing. This template does NOT include medications for the contralateral eye (yet) which should be started on prophylactic medications.",
+    "drugList": [
+      {
+        "drug": {
+          "drugName": "Latanoprost",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical medication for glaucoma.",
+          "dose": "1 drop",
+          "blurb": "* First line treatment for acute spikes in *primary* glaucoma \n* May be contraindicated for secondary glaucoma such as lens luxation or uveitis \n* Extreme miosis with use so not ideal for above secondary glaucomas \n* :cat: As most glaucomas in cats are secondary, limited use - if primary, [reported](https://www.ncbi.nlm.nih.gov/pubmed/26183373) to work but not long-term"
+        },
+        "eye": "OU",
+        "frequency": "BID"
+      },
+      {
+        "drug": {
+          "drugName": "Dorzolamide/Timolol (Cosopt)",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical medication for glaucoma.",
+          "dose": "1 drop",
+          "blurb": "* A combination of a carbonic anhydrase inhibitor (Dorzoladmide) and a beta-blocker (Timolol) - more effect together than either alone \n* Useful for secondary glacuomas were extreme miosis is *not* desired (e.g. uveitis) \n* Start off at BID dosing (more has not necessarily been shown to be better but can do up to QID) \n* :exclamation: Rare incidences of sensitivity (i.e. keratitis) with prolonged use has been [reported](https://www.ncbi.nlm.nih.gov/pubmed/26642138) for dorzolamide"
+        },
+        "eye": "OU",
+        "frequency": "BID"
+      }
+    ]
+  },
+  "Secondary Glaucoma (uveitis)": {
+    "ecollar": "",
+    "description": "Secondary glaucoma from uveitis should be treated for both the increased pressure and the underlying cause (inflammation). Differentials for uveitis should include intraocular (e.g. immune mediated) or systemic (infection or neoplasia) disease and should be treated and/or explored accordingly with the necessary diagnostics.",
+    "drugList": [
+      {
+        "drug": {
+          "drugName": "Prednisolone aceteate",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical steroid and is contraindicated with corneal ulcers. Stop and call if squinting is noted.",
+          "dose": "1 drop",
+          "blurb": "* Indicated for control of active anterior segment inflammation (i.e. uveitis) \n* Good penetration through intact epithelium (better than dexamethasone) \n* Dose depends on degree of inflammation (QID+ if severe, q24h-TID if less)"
+        },
+        "eye": "OU",
+        "frequency": "QID"
+      },
+      {
+        "drug": {
+          "drugName": "Dorzolamide/Timolol (Cosopt)",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical medication for glaucoma.",
+          "dose": "1 drop",
+          "blurb": "* A combination of a carbonic anhydrase inhibitor (Dorzoladmide) and a beta-blocker (Timolol) - more effect together than either alone \n* Useful for secondary glacuomas were extreme miosis is *not* desired (e.g. uveitis) \n* Start off at BID dosing (more has not necessarily been shown to be better but can do up to QID) \n* :exclamation: Rare incidences of sensitivity (i.e. keratitis) with prolonged use has been [reported](https://www.ncbi.nlm.nih.gov/pubmed/26642138) for dorzolamide"
+        },
+        "eye": "OU",
+        "frequency": "BID"
+      }
+    ]
+  },
+  "Anterior Uveitis (no glaucoma)": {
+    "ecollar": "",
+    "description": "Treatment for anterior uveitis include anti-glaucoma medications (Dorzolamide/Timolol) and prevention of secondary effects (miosis, posterior synechiae). Diagnostics should include ruling out of primary intraocular disease vs systemic disease (infection, neoplasia).",
+    "drugList": [
+      {
+        "drug": {
+          "drugName": "Prednisolone aceteate",
+          "formulation": "ophthalmic solution",
+          "route": "topical",
+          "clientInfo": "This medication is a topical steroid and is contraindicated with corneal ulcers. Stop and call if squinting is noted.",
+          "dose": "1 drop",
+          "blurb": "* Indicated for control of active anterior segment inflammation (i.e. uveitis) \n* Good penetration through intact epithelium (better than dexamethasone) \n* Dose depends on degree of inflammation (QID+ if severe, q24h-TID if less)"
+        },
+        "eye": "OU",
+        "frequency": "QID"
+      },
+      {
+        "drug": {
+          "drugName": "Atropine ointment",
+          "formulation": "ophthalmic ointment",
+          "route": "topical",
+          "clientInfo": "This medication is to help dilate the pupil and improve comfort. Effects can last up to a couple weeks in a normal eye - please wash your hands after use. Atropine is very bitter and may induce drooling if it drains down to the nose where it can be licked.",
+          "dose": "a small amount (1/4\" strip)",
+          "blurb": "* Used primarily for cycloplegia to reduce ciliary body spasm (e.g. ulcerative keratitis) or to dilate the pupil (to prevent 360 degree synechiae and iris bombe) in uveitis \n* Frequent use can result in decreased tear production so care should be taken with concurrent KCS (at least add in frequent lubrication) \n* :horse: Atropine can slow GI motility which is a concern for colic - however, there is scant evidence of this and [a](https://www.ncbi.nlm.nih.gov/pubmed/29154707) [few](https://www.ncbi.nlm.nih.gov/pubmed/27308887) [studies](https://www.ncbi.nlm.nih.gov/pubmed/22657933) suggesting there is no significant clinical effect of topical atropine (up to QID) in horses \n* :tongue::sweat_drops: Solution can drip down the nasolacrimal duct and result in significant drooling (medication is quite bitter), ointment can too - maybe less likely."
+        },
+        "eye": "OU",
+        "frequency": "BID"
+      }
+    ]
   }
 }

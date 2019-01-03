@@ -47,7 +47,7 @@
     </v-toolbar>
 
     <v-content>
-      <v-container grid-list-md>
+      <v-container grid-list-md fluid>
           <OphthoMedGen/>
       </v-container>
     </v-content>

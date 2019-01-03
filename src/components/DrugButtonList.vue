@@ -12,7 +12,6 @@
       {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
     </drug-button>
 
-    <v-slide-y-transition>
       <drug-button
         class="bigButton"
         v-if="index >= 6 && showMore == true"
@@ -24,12 +23,10 @@
         <!-- eslint-disable-next-line  -->
         {{(index+1<10) ? '(' + (index+1) + ')' : '' }} {{drug.drugName}}
       </drug-button>
-    </v-slide-y-transition>
 
-    <v-btn @click="toggleShowMore">
+    <v-btn @click="toggleShowMore" v-show="this.drugList && this.drugList.length > 5">
       {{ showMore ? "Less" : "More" }}
       <v-icon
-        v-show="this.drugList && this.drugList.length > 5"
         color="blue"
         outline
         large

@@ -190,8 +190,8 @@
       <v-layout>
         <v-flex>
           <v-card>
-            <v-layout align-center justify-center>
-              <v-flex>
+            <v-layout align-center justify-start wrap>
+              <v-flex >
                 <v-btn
                   v-shortkey="['ctrl', 'c']"
                   @shortkey="doCopy()"
@@ -199,13 +199,13 @@
                   flat
                 >(Ctrl-C) Copy to Clipboard</v-btn>
               </v-flex>
-              <v-flex>
+              <v-flex >
                 <v-btn flat @click="popDrugList()">Remove Last</v-btn>
               </v-flex>
-              <v-flex>
+              <v-flex >
                 <v-btn color="indigo" @click="clearDrugList()" flat>Clear All</v-btn>
               </v-flex>
-              <v-flex>
+              <v-flex >
                 <v-tooltip top>
                   <ophtho-drug-template
                     slot="activator"

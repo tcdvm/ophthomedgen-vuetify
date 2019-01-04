@@ -1,58 +1,45 @@
 <template>
-  <v-app >
+  <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Ophtho Drugs</span>
         <!-- <span class="font-weight-light">MATERIAL DESIGN</span> -->
       </v-toolbar-title>
       <v-spacer></v-spacer>
-          <v-dialog
-      v-model="instructions"
-      width="500"
-    >
-      <v-btn
-        slot="activator"
-        color="primary"
-        dark
-      >
-      <span class="mr-2">Instructions</span>
-      </v-btn>
+      <v-dialog v-model="instructions" fullwidth>
+        <v-btn slot="activator" color="primary" dark>
+          <span class="mr-2">Instructions</span>
+        </v-btn>
 
-      <v-card>
-        <v-card-title
-          class="headline grey lighten-2"
-          primary-title
-        >
-          Privacy Policy
-        </v-card-title>
+        <v-card>
+          <v-card-title class="headline grey lighten-2" primary-title>How to use this website</v-card-title>
 
-        <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </v-card-text>
+          <v-card-text>
+            <v-img
+              src="instructions1.png"
+              alt="Hover over classes for more info, click on link to get to notes"
+              contain
+              height="550"
+              max-height="771"
+            ></v-img>
+          </v-card-text>
 
-        <v-divider></v-divider>
+          <v-divider></v-divider>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            flat
-            @click="dialog = false"
-          >
-            I accept
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" flat @click="dialog = false">I accept</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-toolbar>
 
     <v-content>
       <v-container grid-list-md fluid>
-          <OphthoMedGen/>
+        <OphthoMedGen/>
       </v-container>
     </v-content>
     <v-footer app></v-footer>
-
   </v-app>
 </template>
 
@@ -66,7 +53,7 @@ export default {
   },
   data() {
     return {
-      instructions: false
+      instructions: true
     };
   }
 };

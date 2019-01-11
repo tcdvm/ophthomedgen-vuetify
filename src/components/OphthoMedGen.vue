@@ -203,7 +203,7 @@
                 <v-btn flat @click="popDrugList()">Remove Last</v-btn>
               </v-flex>
               <v-flex>
-                <v-btn color="indigo" @click="clearDrugList()" flat>Clear All</v-btn>
+                <v-btn color="red" @click="clearDrugList()" flat>Clear All</v-btn>
               </v-flex>
               <v-flex>
                 <v-tooltip top>
@@ -221,9 +221,10 @@
               <v-flex>
                 <v-textarea
                   class="padded-textarea"
-                  outline
+                  solo
+                  readonly
                   v-model="instructions"
-                  placeholder="Medication instructions here."
+                  placeholder="Medication instructions here (readonly - make any needed changes after pasting)."
                   rows="35"
                   id="instructions"
                 ></v-textarea>
@@ -742,14 +743,16 @@ export default {
 
       if (this.activeTab == 0) {
         if (this.step > 1)
-          medicationInstructions += `\n---- TO BE ADDED (${this.drugClass}): ${
-            this.drug.drugName
-          } ${this.sigEye} ${this.sigFrequency}\n\n`;
+          medicationInstructions += `\n---------------------------\n\n TO BE ADDED (${
+            this.drugClass
+          }): ${this.drug.drugName} ${this.sigEye} ${
+            this.sigFrequency
+          }\n\n------------------------------\n\n`;
       } else if (this.activeTab == 1) {
         if (this.entermedsText)
-          medicationInstructions += `\n----- TO BE ADDED: ${
+          medicationInstructions += `\n---------------------------\n\n TO BE ADDED: ${
             this.entermedsText
-          }\n\n`;
+          }\n\n-----------------------------\n\n`;
       }
 
       if (numTopical > 1) {

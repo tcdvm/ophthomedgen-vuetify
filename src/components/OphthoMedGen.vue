@@ -389,6 +389,7 @@ export default {
     },
     clearDrugList: function() {
       this.drugList = [];
+      this.ecollar = "";
     },
     appendDrugs: function(drugTemplate) {
       this.ecollar = drugTemplate.ecollar ? drugTemplate.ecollar : this.ecollar;

@@ -80,7 +80,7 @@ export default {
   },
   data() {
     return {
-      instructions: true,
+      instructions: false,
       feedback: false,
       items: [
         {

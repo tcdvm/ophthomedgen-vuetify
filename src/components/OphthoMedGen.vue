@@ -846,4 +846,8 @@ function toEnglish(term) {
 .v-input--selection-controls {
   margin-top: 0px;
 }
+
+>>> .markdown-body a {
+  text-decoration: underline;
+}
 </style>

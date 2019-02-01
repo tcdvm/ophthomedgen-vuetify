@@ -113,9 +113,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .footer-container {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+a {
+  text-decoration: underline;
 }
 </style>
